@@ -4,28 +4,35 @@
 
 :root {
   color-scheme: light;
-  --color-beige: #F6F4EE;
-  --color-burgundy: #6B2A34;
-  --color-sage: #86998A;
-  --color-ink: #1F2420;
-  --color-paper: #FFFEFA;
-  --color-muted: #68716A;
-  --color-sage-soft: #E8ECE6;
+  --color-burgundy: #590907;
+  --color-burgundy-hover: #420605;
+  --color-burgundy-light: #731210;
+  --color-beige: #E8D2B5;
+  --color-beige-subtle: #F7EFE4;
+  --color-sage: #A5A79B;
+  --color-sage-soft: #D9DBD3;
+  --color-sage-light: #ECEEE9;
+  --color-paper: #FDFBF7;
+  --color-ink: #1C1E1B;
+  --color-muted: #545850;
+  --border-color: rgba(165, 167, 155, 0.45);
   font-family: "Poppins", "Segoe UI", sans-serif;
   color: var(--color-ink);
-  background: var(--color-beige);
+  background: var(--color-beige-subtle);
 }
 
 html {
-  background: var(--color-beige);
+  background: var(--color-beige-subtle);
   scroll-behavior: smooth;
 }
 
 body {
   min-width: 320px;
-  background: var(--color-beige) !important;
+  background: var(--color-beige-subtle) !important;
   color: var(--color-ink);
   font-family: "Poppins", "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 button,
@@ -44,22 +51,23 @@ select:focus-visible {
   outline-offset: 3px;
 }
 
+/* Background surface mappings */
 [class~="bg-white"] {
   background-color: var(--color-paper) !important;
 }
 
 [class~="bg-gray-50"],
 [class~="bg-gray-100"] {
-  background-color: var(--color-beige) !important;
+  background-color: var(--color-beige-subtle) !important;
 }
 
 [class~="bg-gray-200"],
 [class~="bg-gray-300"] {
-  background-color: var(--color-sage-soft) !important;
+  background-color: var(--color-sage-light) !important;
 }
 
 [class~="bg-green-50"] {
-  background-color: var(--color-sage-soft) !important;
+  background-color: var(--color-sage-light) !important;
 }
 
 [class~="bg-orange-500"],
@@ -74,6 +82,7 @@ select:focus-visible {
   background-color: var(--color-burgundy) !important;
 }
 
+/* Text color mappings */
 [class~="text-gray-500"],
 [class~="text-gray-600"],
 [class~="text-gray-700"],
@@ -92,22 +101,30 @@ select:focus-visible {
   color: var(--color-burgundy) !important;
 }
 
+/* Border mappings */
 [class~="border-gray-200"],
 [class~="border-gray-300"],
 [class~="border-gray-400"] {
-  border-color: rgb(134 153 138 / 45%) !important;
+  border-color: var(--border-color) !important;
 }
 
 [class~="border-green-700"] {
   border-color: var(--color-burgundy) !important;
 }
 
+/* Brand Wordmark & Navbar */
+.nav-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nav-logo-container .brand-wordmark {
   color: var(--color-burgundy);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
   font-weight: 700;
-  letter-spacing: 0.045em;
+  letter-spacing: 0.08em;
   white-space: nowrap;
 }
 
@@ -119,6 +136,7 @@ select:focus-visible {
   background-color: var(--color-burgundy) !important;
 }
 
+/* Primary and Secondary Buttons */
 .primary-button,
 .primary-button-new,
 .secondary-button,
@@ -128,16 +146,19 @@ select:focus-visible {
   color: var(--color-paper) !important;
   border: 1px solid var(--color-burgundy);
   border-radius: 999px;
-  box-shadow: 0 5px 14px rgb(107 42 52 / 14%);
+  box-shadow: 0 4px 12px rgba(89, 9, 7, 0.16);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  cursor: pointer;
 }
 
 .primary-button:hover,
 .primary-button-new:hover,
 .secondary-button:hover,
 .secondary-button-contact:hover {
-  background-color: #54212A !important;
-  box-shadow: 0 8px 18px rgb(107 42 52 / 20%);
+  background-color: var(--color-burgundy-hover) !important;
+  box-shadow: 0 6px 16px rgba(89, 9, 7, 0.22);
   transform: translateY(-1px);
 }
 
@@ -155,47 +176,52 @@ select:focus-visible {
   text-decoration: none;
 }
 
+/* Auth Pages */
 .auth-page {
   min-height: 100vh;
   display: grid;
   place-items: center;
   padding: clamp(1.25rem, 5vw, 4rem);
   background:
-    radial-gradient(ellipse at 12% 12%, rgb(134 153 138 / 14%), transparent 34%),
-    var(--color-beige);
+    radial-gradient(ellipse at 15% 15%, rgba(165, 167, 155, 0.18), transparent 40%),
+    radial-gradient(ellipse at 85% 85%, rgba(232, 210, 181, 0.35), transparent 50%),
+    var(--color-beige-subtle);
 }
 
 .auth-card {
-  width: min(100%, 560px);
-  padding: clamp(1.75rem, 5vw, 3.25rem);
-  border: 1px solid rgb(134 153 138 / 38%);
-  border-radius: 24px;
+  width: min(100%, 540px);
+  padding: clamp(1.75rem, 5vw, 3rem);
+  border: 1px solid rgba(165, 167, 155, 0.4);
+  border-radius: 20px;
   background: var(--color-paper);
-  box-shadow: 0 24px 70px rgb(31 36 32 / 10%);
+  box-shadow: 0 20px 60px rgba(28, 30, 27, 0.08);
   text-align: left;
 }
 
 .auth-brand {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   color: var(--color-burgundy);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .auth-card h1 {
   color: var(--color-ink);
-  font-size: clamp(1.75rem, 5vw, 2.2rem);
+  font-size: clamp(1.65rem, 5vw, 2.1rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .auth-intro {
-  margin: 0.65rem 0 1.75rem;
+  margin: 0.6rem 0 1.75rem;
   color: var(--color-muted);
-  font-size: 0.98rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 
 .auth-card form {
@@ -203,15 +229,16 @@ select:focus-visible {
 }
 
 .auth-field {
-  min-height: 54px;
-  border: 1px solid rgb(134 153 138 / 45%);
-  background: var(--color-beige) !important;
+  min-height: 52px;
+  border: 1px solid rgba(165, 167, 155, 0.45);
+  background: var(--color-paper) !important;
+  border-radius: 10px;
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .auth-field:focus-within {
-  border-color: var(--color-sage);
-  box-shadow: 0 0 0 3px rgb(134 153 138 / 15%);
+  border-color: var(--color-burgundy);
+  box-shadow: 0 0 0 3px rgba(89, 9, 7, 0.12);
 }
 
 .auth-field input {
@@ -220,7 +247,7 @@ select:focus-visible {
 }
 
 .auth-field input::placeholder {
-  color: #788078;
+  color: var(--color-muted);
 }
 
 .auth-card form > .flex.justify-center {
@@ -228,19 +255,19 @@ select:focus-visible {
 }
 
 .auth-card form > .flex.justify-center button {
-  min-height: 52px;
+  min-height: 50px;
   border: 1px solid var(--color-burgundy);
   border-radius: 999px;
   background: var(--color-burgundy);
   color: var(--color-paper);
-  box-shadow: 0 5px 14px rgb(107 42 52 / 14%);
+  box-shadow: 0 4px 12px rgba(89, 9, 7, 0.16);
   font-weight: 600;
   transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .auth-card form > .flex.justify-center button:hover {
-  background: #54212A;
-  box-shadow: 0 8px 18px rgb(107 42 52 / 20%);
+  background: var(--color-burgundy-hover);
+  box-shadow: 0 6px 16px rgba(89, 9, 7, 0.22);
   transform: translateY(-1px);
 }
 
@@ -248,7 +275,7 @@ select:focus-visible {
   display: inline-block;
   margin-top: 1.25rem;
   color: var(--color-burgundy);
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -271,18 +298,20 @@ select:focus-visible {
 
 .auth-select__control {
   min-height: 42px !important;
-  border-color: rgb(134 153 138 / 45%) !important;
+  border-color: rgba(165, 167, 155, 0.45) !important;
   background: var(--color-paper) !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
 }
 
 .auth-select__control--is-focused {
-  border-color: var(--color-sage) !important;
-  box-shadow: 0 0 0 3px rgb(134 153 138 / 15%) !important;
+  border-color: var(--color-burgundy) !important;
+  box-shadow: 0 0 0 3px rgba(89, 9, 7, 0.12) !important;
 }
 
 .auth-select__multi-value {
-  background: var(--color-sage-soft) !important;
+  background: var(--color-sage-light) !important;
+  border-radius: 4px !important;
 }
 
 .auth-select__multi-value__label {
@@ -291,10 +320,10 @@ select:focus-visible {
 
 @media (max-width: 520px) {
   .auth-card {
-    border-radius: 18px;
+    border-radius: 16px;
   }
 
   .nav-logo-container .brand-wordmark {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 }

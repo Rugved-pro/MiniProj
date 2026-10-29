@@ -1,24 +1,22 @@
-import "./Landing.css"
+import "./Landing.css";
+import Navbar from "../../components/navbars/Navbar";
+import Layout from "../../components/Layout";
 import About from "../../components/About";
 import Work from "../../components/Work";
-import Testimonial from "../../components/Testimonial";
-import Contact from "../../components/Contact";
 import Footer from "../../components/Footer";
-import Layout from "../../components/Layout";
-import Navbar from "../../components/navbars/Navbar";
 
 const Landing = () => {
   return (
-    <div className="landing">   
+    <div className="landing min-h-screen bg-[#F7EFE4] text-[#1C1E1B]">
       <Navbar />
-      <Layout/>
-      <About />
-      <Work />
-      <Testimonial />
-      <Contact />
+      <main>
+        <Layout />
+        <About />
+        <Work />
+      </main>
       <Footer />
     </div>
   );
-}
+};
 
 export default Landing;

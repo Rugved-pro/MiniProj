@@ -1,68 +1,78 @@
 .soil-intelligence {
     min-height: 100vh;
-    background: #f7f8f6;
-    color: #263126;
+    background: #F7EFE4;
+    color: #1C1E1B;
 }
 
 .soil-intelligence__content {
     width: min(1120px, calc(100% - 32px));
     margin: 0 auto;
-    padding: 18px 0 56px;
+    padding: 24px 0 64px;
 }
 
 .soil-intelligence__back {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #536253;
+    color: #545850;
     text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 140ms ease;
 }
 
 .soil-intelligence__back:hover {
-    color: #285f2e;
+    color: #590907;
 }
 
 .soil-intelligence__intro {
-    margin: 26px 0;
+    margin: 24px 0 28px;
 }
 
 .soil-intelligence__eyebrow {
     margin: 0 0 8px;
-    color: #34763b;
-    font-size: 13px;
+    color: #590907;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
 .soil-intelligence__intro h1 {
-    margin: 0;
-    color: #263126;
+    margin: 0 0 8px;
+    color: #1C1E1B;
     font-size: clamp(26px, 4vw, 36px);
+    font-family: Georgia, Cambria, serif;
+    font-weight: 700;
 }
 
 .soil-intelligence__intro > p:last-child {
     max-width: 720px;
-    color: #687368;
-    line-height: 1.55;
+    color: #545850;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .soil-intelligence__card {
-    margin: 18px 0;
-    padding: 22px;
-    border: 1px solid #e1e7df;
-    border-radius: 14px;
-    background: #fff;
-    box-shadow: 0 3px 12px rgb(34 55 35 / 5%);
+    margin: 20px 0;
+    padding: 24px;
+    border: 1px solid rgba(165, 167, 155, 0.4);
+    border-radius: 16px;
+    background: #FDFBF7;
+    box-shadow: 0 3px 12px rgba(28, 30, 27, 0.04);
 }
 
 .soil-intelligence__card h2 {
     margin: 0 0 8px;
-    color: #2d3e2e;
-    font-size: 21px;
+    color: #1C1E1B;
+    font-size: 20px;
+    font-family: Georgia, Cambria, serif;
+    font-weight: 700;
 }
 
 .soil-intelligence__card p {
-    color: #667166;
+    color: #545850;
+    font-size: 14px;
     line-height: 1.55;
 }
 
@@ -89,32 +99,39 @@
 
 .soil-intelligence__upload-button {
     flex: 0 0 auto;
-    padding: 12px 18px;
-    border: 0;
-    border-radius: 24px;
-    background: #34763b;
-    color: #fff;
+    padding: 11px 20px;
+    border: 1px solid #590907;
+    border-radius: 999px;
+    background: #590907;
+    color: #FDFBF7;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
+    letter-spacing: 0.02em;
+    box-shadow: 0 3px 10px rgba(89, 9, 7, 0.18);
+    transition: all 150ms ease;
 }
 
 .soil-intelligence__upload-button:hover:not(:disabled) {
-    background: #285f2e;
+    background: #420605;
+    box-shadow: 0 5px 14px rgba(89, 9, 7, 0.24);
+    transform: translateY(-1px);
 }
 
 .soil-intelligence__upload-button:disabled {
     cursor: wait;
-    opacity: 0.7;
+    opacity: 0.65;
 }
 
 .soil-intelligence__empty,
 .soil-intelligence__notice {
     margin: 14px 0 0;
-    padding: 13px 15px;
+    padding: 14px 16px;
     border-radius: 10px;
-    background: #f3f6f1;
-    color: #536253;
+    background: #F7EFE4;
+    border: 1px solid rgba(165, 167, 155, 0.35);
+    color: #545850;
+    font-size: 13px;
     line-height: 1.55;
 }
 
@@ -125,9 +142,11 @@
 .soil-intelligence__error {
     margin: 14px 0 0;
     padding: 12px 14px;
-    border-radius: 8px;
-    background: #fff0ee;
-    color: #a52d20;
+    border-radius: 10px;
+    background: #FDF2F2;
+    border: 1px solid rgba(140, 29, 24, 0.25);
+    color: #8C1D18;
+    font-size: 13px;
 }
 
 .soil-intelligence__source-banner {
@@ -135,11 +154,11 @@
     flex-direction: column;
     gap: 5px;
     margin: 18px 0;
-    padding: 15px 18px;
-    border-left: 4px solid #648a46;
+    padding: 14px 18px;
+    border-left: 4px solid #590907;
     border-radius: 8px;
-    background: #eef4e9;
-    color: #435541;
+    background: #E8D2B5;
+    color: #1C1E1B;
     font-size: 13px;
 }
 
@@ -148,7 +167,7 @@
     display: flex;
     flex-direction: column;
     gap: 7px;
-    color: #475547;
+    color: #1C1E1B;
     font-size: 13px;
     font-weight: 600;
 }
@@ -158,11 +177,21 @@
 .soil-intelligence__advisor-form input {
     min-width: 180px;
     padding: 10px 12px;
-    border: 1px solid #cfd8cc;
+    border: 1px solid rgba(165, 167, 155, 0.45);
     border-radius: 8px;
-    background: #fff;
-    color: #263126;
+    background: #FDFBF7;
+    color: #1C1E1B;
     font: inherit;
+    font-size: 13px;
+    transition: border-color 140ms ease;
+}
+
+.soil-intelligence__crop-select select:focus,
+.soil-intelligence__advisor-form select:focus,
+.soil-intelligence__advisor-form input:focus {
+    outline: none;
+    border-color: #590907;
+    box-shadow: 0 0 0 2px rgba(89, 9, 7, 0.12);
 }
 
 .soil-intelligence__measurements {
@@ -178,23 +207,24 @@
     flex-direction: column;
     gap: 5px;
     padding: 14px;
-    border: 1px solid #e5ebe3;
+    border: 1px solid rgba(165, 167, 155, 0.35);
     border-radius: 10px;
-    background: #fcfdfb;
+    background: #FDFBF7;
 }
 
 .soil-intelligence__measurement span {
-    color: #667166;
-    font-size: 13px;
+    color: #545850;
+    font-size: 12px;
 }
 
 .soil-intelligence__measurement strong {
-    color: #2f6736;
-    font-size: 21px;
+    color: #590907;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .soil-intelligence__measurement small {
-    color: #7d877c;
+    color: #A5A79B;
     font-size: 11px;
 }
 
@@ -205,7 +235,7 @@
 
 .soil-intelligence__crop-rule {
     margin: 12px 0;
-    color: #344734 !important;
+    color: #1C1E1B !important;
     font-weight: 600;
 }
 
@@ -224,18 +254,19 @@
     padding: 16px;
     border-radius: 10px;
     line-height: 1.55;
+    font-size: 13px;
 }
 
 .soil-intelligence__decision--irrigate {
-    border: 1px solid #ecd7aa;
-    background: #fff8e9;
-    color: #694d13;
+    border: 1px solid #ECD7AA;
+    background: #FFF8E9;
+    color: #7A5313;
 }
 
 .soil-intelligence__decision--postpone {
-    border: 1px solid #cfe2cc;
-    background: #eff7ee;
-    color: #315b34;
+    border: 1px solid #CFE2CC;
+    background: #EFF7EE;
+    color: #2D5E31;
 }
 
 .soil-intelligence__source {
@@ -244,23 +275,24 @@
 }
 
 .soil-intelligence__source a {
-    color: #28643a;
+    color: #590907;
     text-decoration: underline;
+    font-weight: 600;
 }
 
 .soil-intelligence__details summary {
-    color: #344734;
+    color: #1C1E1B;
     cursor: pointer;
     font-weight: 700;
 }
 
 @media (max-width: 700px) {
     .soil-intelligence__content {
-        width: calc(100% - 20px);
+        width: calc(100% - 24px);
     }
 
     .soil-intelligence__card {
-        padding: 17px;
+        padding: 18px;
     }
 
     .soil-intelligence__section-heading {

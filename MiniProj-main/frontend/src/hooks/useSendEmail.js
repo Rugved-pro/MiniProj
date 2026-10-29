@@ -1,29 +1,25 @@
 import { useState } from "react";
-import { useAuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSendEmail = () => {
-    const { authUser } = useAuthContext();
     const [loading, setLoading] = useState(false);
+    const { authUser } = useAuthContext();
 
     const email = async ({ mail, message }) => {
-        if (!validators({ mail, message })) return;
+        const success = handleInputErrors({ mail, message });
+        if (!success) return;
 
         setLoading(true);
         try {
-            if (!import.meta.env.VITE_EMAILJS_SERVICE_ID) {
-                toast.success("Message received! Our team will get back to you.");
-                return;
-            }
-
-            const emailData = {
+            const data = {
                 service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
                 template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
                 user_id: import.meta.env.VITE_EMAILJS_USER_ID,
                 template_params: {
                     from_name: authUser?.name || "Visitor",
                     from_email: mail,
-                    to_name: "KisanSahayak",
+                    to_name: "Ceres Support",
                     message: message
                 }
             };
@@ -33,31 +29,29 @@ const useSendEmail = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(emailData)
+                body: JSON.stringify(data)
             });
 
-            const data = await res.text();
-            if (data) {
-                toast.success("Email sent successfully");
+            if (res.ok) {
+                toast.success("Feedback submitted to Ceres Support.");
+            } else {
+                toast.error("Could not send message. Please try again later.");
             }
         } catch (error) {
-            toast.error("Error in sending email");
-            console.log(error.message);
+            toast.error(error.message);
         } finally {
             setLoading(false);
         }
     };
-
     return { loading, email };
 };
 
 export default useSendEmail;
 
-const validators = ({ mail, message }) => {
-    if (!message || !mail) {
-        toast.error("Please fill all the fields");
+function handleInputErrors({ mail, message }) {
+    if (!mail || !message) {
+        toast.error("Please fill in all fields");
         return false;
     }
-
     return true;
-};
+}

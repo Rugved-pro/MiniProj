@@ -9,10 +9,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
-import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import { MdLogin } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { RiPlantLine } from "react-icons/ri";
+import { MdOutlineSensors } from "react-icons/md";
+import { useNavigate, Link } from "react-router-dom";
+import CeresLogo from "../CeresLogo";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,64 +21,132 @@ const Navbar = () => {
 
   const menuOptions = [
     {
-      text: "Home",
-      icon: <HomeIcon />,
-      link: ""
+      text: "Overview",
+      icon: <HomeIcon className="text-[#590907]" />,
+      link: "/"
     },
     {
-      text: "About",
-      icon: <InfoIcon />,
+      text: "Crop Health",
+      icon: <RiPlantLine className="text-[#590907] text-xl" />,
+      link: "/upload"
+    },
+    {
+      text: "Field Intelligence",
+      icon: <MdOutlineSensors className="text-[#590907] text-xl" />,
+      link: "/soil-intelligence"
+    },
+    {
+      text: "About Platform",
+      icon: <InfoIcon className="text-[#590907]" />,
       link: "#about-section-container"
-    },
-    {
-      text: "Testimonials",
-      icon: <CommentRoundedIcon />,
-      link: "#testimonial-id"
-    },
-    {
-      text: "Contact",
-      icon: <PhoneRoundedIcon />,
-      link: "#contact-id"
     },
   ];
 
   return (
-    <nav>
-      <div className="nav-logo-container">
-        <span className="brand-wordmark">KisanSahayak</span>
+    <nav className="w-full flex items-center justify-between px-6 py-4 bg-transparent border-b border-[#A5A79B]/30">
+      <Link to="/" className="no-underline">
+        <CeresLogo size={34} />
+      </Link>
+
+      <div className="navbar-links-container hidden md:flex items-center gap-7">
+        <Link
+          to="/"
+          className="text-[#1C1E1B] font-medium text-sm transition-colors duration-200 hover:text-[#590907]"
+        >
+          Overview
+        </Link>
+        <Link
+          to="/upload"
+          className="text-[#1C1E1B] font-medium text-sm transition-colors duration-200 hover:text-[#590907]"
+        >
+          Crop Health
+        </Link>
+        <Link
+          to="/soil-intelligence"
+          className="text-[#1C1E1B] font-medium text-sm transition-colors duration-200 hover:text-[#590907]"
+        >
+          Field Intelligence
+        </Link>
+        <a
+          href="#about-section-container"
+          className="text-[#1C1E1B] font-medium text-sm transition-colors duration-200 hover:text-[#590907]"
+        >
+          About
+        </a>
       </div>
-      <div className="navbar-links-container hidden md:flex ml-4">
-        <a href="">Home</a>
-        <a href="#about-section-container">About</a>
-        <a href="#testimonial-id">Testimonials</a>
-        <a href="#contact-id">Contact</a>
-        <a onClick={() => navigate("/login")} href="">Login</a>
+
+      <div className="hidden md:flex items-center gap-3">
+        <button
+          onClick={() => navigate("/login")}
+          className="px-4 py-2 text-sm font-semibold text-[#590907] border border-[#590907]/40 rounded-full hover:border-[#590907] hover:bg-[#590907]/5 transition-all duration-150"
+        >
+          Sign In
+        </button>
+        <button
+          onClick={() => navigate("/signup")}
+          className="primary-button px-5 py-2 text-sm font-semibold text-[#FDFBF7] bg-[#590907] rounded-full hover:bg-[#420605] shadow-sm transition-all duration-150"
+        >
+          Get Started
+        </button>
       </div>
-      <div className="navbar-menu-container md:hidden">
-        <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
+
+      <div className="navbar-menu-container md:hidden flex items-center">
+        <button
+          onClick={() => setOpenMenu(true)}
+          className="p-2 text-[#1C1E1B] hover:text-[#590907] focus:outline-none"
+          aria-label="Open navigation menu"
+        >
+          <HiOutlineBars3 className="text-2xl" />
+        </button>
       </div>
+
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
         <Box
-          sx={{ width: 250 }}
+          sx={{ width: 280, backgroundColor: "#FDFBF7", height: "100%", p: 2 }}
           role="presentation"
           onClick={() => setOpenMenu(false)}
           onKeyDown={() => setOpenMenu(false)}
         >
-          <List>
+          <div className="mb-4 pt-2">
+            <CeresLogo size={30} />
+          </div>
+          <Divider sx={{ borderColor: "rgba(165, 167, 155, 0.3)" }} />
+
+          <List sx={{ mt: 1 }}>
             {menuOptions.map((item) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <a href={item.link}>{item.text}</a>
+                <ListItemButton
+                  onClick={() => {
+                    if (item.link.startsWith("#")) {
+                      window.location.hash = item.link;
+                    } else {
+                      navigate(item.link);
+                    }
+                  }}
+                  sx={{ borderRadius: "8px", my: 0.5 }}
+                >
+                  <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
+                  <span className="text-[#1C1E1B] font-medium text-sm">{item.text}</span>
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
-          <Divider />
+          <Divider sx={{ my: 2, borderColor: "rgba(165, 167, 155, 0.3)" }} />
 
-          <div className="flex items-center gap-6 hover:bg-gray-100  px-4 m-1 cursor-pointer" onClick={() => { navigate("/login") }}>
-            <button className="text-gray-500 bg-transparent border-none outline-none hover:bg-gray-100"><MdLogin className="w-[23px] h-[50px] object-cover" /></button>
-            <span>Login</span>
+          <div className="flex flex-col gap-2 pt-2">
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#590907] border border-[#590907] rounded-full hover:bg-[#590907]/5 transition"
+            >
+              <MdLogin className="text-lg" />
+              <span>Sign In</span>
+            </button>
+            <button
+              onClick={() => navigate("/signup")}
+              className="w-full py-2.5 px-4 text-sm font-semibold text-[#FDFBF7] bg-[#590907] rounded-full hover:bg-[#420605] shadow transition"
+            >
+              Create Account
+            </button>
           </div>
         </Box>
       </Drawer>

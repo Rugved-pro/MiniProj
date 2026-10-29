@@ -27,7 +27,7 @@ const Demo = () => {
       <div className="mx-auto max-w-6xl">
       <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-green-700">KisanSahayak</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-[#590907]">Ceres</p>
           <h1 className="mt-1 text-3xl font-bold">Sample farmer dashboard</h1>
         </div>
         <Link className="rounded-full border border-green-700 px-5 py-2 font-semibold text-green-800 hover:bg-green-50" to="/">

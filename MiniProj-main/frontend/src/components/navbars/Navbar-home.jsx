@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -8,108 +7,154 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { MdAnalytics, MdOutlineTaskAlt, MdOutlineQueryStats } from "react-icons/md";
 import HomeIcon from "@mui/icons-material/Home";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { RiPlantLine } from "react-icons/ri";
+import { FaCamera, FaHistory, FaUserCircle } from "react-icons/fa";
+import { MdOutlineSensors, MdOutlineAssessment, MdLogout } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
+import { useAuthContext } from "../../context/AuthContext";
+import CeresLogo from "../CeresLogo";
 
-const Navbar = () => {
+const NavbarHome = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { logout } = useLogout();
+  const { authUser } = useAuthContext();
+  const location = useLocation();
 
-  const menuOptions = [
-    {
-      text: "Home",
-      icon: <HomeIcon />,
-      type: "section",
-      link: ""
-    },
-    {
-      text: "Statistics",
-      icon: <MdOutlineQueryStats />,
-      type: "section",
-      link: "#statistics-id"
-    },
-    {
-      text: "Activities",
-      icon: <MdOutlineTaskAlt />,
-      type: "section",
-      link: "#new-activities-id"
-    },
-    {
-      text: "Contact",
-      icon: <PhoneRoundedIcon />,
-      type: "section",
-      link: "#contact-id"
-    },
-    {
-      text: "Soil Analyzer",
-      icon: <MdAnalytics />,
-      type: "page",
-      link: "/soil-intelligence"
-    },
-    {
-      text: "Cart",
-      icon: <ShoppingCartRoundedIcon />,
-      type: "page",
-      link: "/marketplace"
-    }
+  const navLinks = [
+    { text: "Overview", link: "/home", icon: <HomeIcon /> },
+    { text: "Crop Health", link: "/upload", icon: <RiPlantLine className="text-lg" /> },
+    { text: "Live Capture", link: "/capture", icon: <FaCamera /> },
+    { text: "Field Intelligence", link: "/soil-intelligence", icon: <MdOutlineSensors className="text-lg" /> },
+    { text: "Dashboard", link: "/dashboard", icon: <MdOutlineAssessment className="text-lg" /> },
+    { text: "History", link: "/history", icon: <FaHistory /> },
   ];
 
+  const isActive = (path) => location.pathname === path;
+
   return (
-    <nav>
-      <div className="nav-logo-container">
-        <span className="brand-wordmark">KisanSahayak</span>
+    <nav className="w-full flex items-center justify-between px-6 py-3.5 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#A5A79B]/30 sticky top-0 z-40">
+      <Link to="/home" className="no-underline">
+        <CeresLogo size={32} />
+      </Link>
+
+      <div className="hidden lg:flex items-center gap-1">
+        {navLinks.map((item) => {
+          const active = isActive(item.link);
+          return (
+            <Link
+              key={item.text}
+              to={item.link}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-150 ${
+                active
+                  ? "bg-[#590907] text-[#FDFBF7] shadow-sm"
+                  : "text-[#1C1E1B] hover:text-[#590907] hover:bg-[#E8D2B5]/30"
+              }`}
+            >
+              {item.text}
+            </Link>
+          );
+        })}
       </div>
-      <div className="navbar-links-container hidden md:flex ml-4">
-        <a href="" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Welcome</a>
 
-        <a href="#statistics-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Statistics</a>
-
-        <a href="#new-activities-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">New</a>
-
-        <a href="#contact-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Contact</a>
-
-        <Link to="/soil-intelligence" className="relative inline-block px-3 py-2 text-black hover:text-orange-500">
-          Soil Analyzer
+      <div className="hidden md:flex items-center gap-3">
+        <Link
+          to="/profile"
+          className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-[#545850] hover:text-[#590907] transition-colors"
+          title="Farmer Profile"
+        >
+          <FaUserCircle className="text-lg text-[#A5A79B]" />
+          <span>{authUser?.name ? authUser.name.split(" ")[0] : "Farmer"}</span>
         </Link>
-        <Link to="/marketplace" aria-label="Marketplace" className="hover:text-orange-500">
-          <BsCart2 className="navbar-cart-icon" />
-        </Link>
-        <button onClick={logout} className="primary-button text-black">Logout</button>
+        <button
+          onClick={logout}
+          className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-[#590907] border border-[#590907]/40 rounded-full hover:bg-[#590907] hover:text-[#FDFBF7] transition-all duration-150"
+        >
+          <MdLogout className="text-sm" />
+          <span>Logout</span>
+        </button>
       </div>
-      <div className="navbar-menu-container md:hidden">
-        <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
+
+      <div className="lg:hidden flex items-center">
+        <button
+          onClick={() => setOpenMenu(true)}
+          className="p-1.5 text-[#1C1E1B] hover:text-[#590907] focus:outline-none"
+          aria-label="Open navigation menu"
+        >
+          <HiOutlineBars3 className="text-2xl" />
+        </button>
       </div>
+
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
         <Box
-          sx={{ width: 250 }}
+          sx={{ width: 280, backgroundColor: "#FDFBF7", height: "100%", p: 2 }}
           role="presentation"
           onClick={() => setOpenMenu(false)}
           onKeyDown={() => setOpenMenu(false)}
         >
-          <List>
-            {menuOptions.map((item) => (
-              <ListItem key={item.text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  {item.type === "section" ? (
-                    <a href={item.link}>{item.text}</a>
-                  ) : (
-                    <Link to={item.link}>{item.text}</Link>
-                  )}
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
+          <div className="mb-3 pt-2">
+            <CeresLogo size={30} />
+          </div>
+          {authUser?.name && (
+            <div className="px-2 py-1 mb-2 text-xs text-[#545850]">
+              Signed in as <strong className="text-[#1C1E1B]">{authUser.name}</strong>
+            </div>
+          )}
+          <Divider sx={{ borderColor: "rgba(165, 167, 155, 0.3)" }} />
 
-          <div className="flex items-center gap-6 hover:bg-gray-100  px-4 m-1 cursor-pointer" onClick={logout}>
-            <button className="text-gray-500 bg-transparent border-none outline-none hover:bg-gray-100"><MdLogout className="w-[23px] h-[50px] object-cover" /></button>
-            <span>Logout</span>
+          <List sx={{ mt: 1 }}>
+            {navLinks.map((item) => {
+              const active = isActive(item.link);
+              return (
+                <ListItem key={item.text} disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    to={item.link}
+                    sx={{
+                      borderRadius: "8px",
+                      my: 0.5,
+                      backgroundColor: active ? "rgba(89, 9, 7, 0.08)" : "transparent",
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 38,
+                        color: active ? "#590907" : "#545850",
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <span
+                      className={`text-sm ${
+                        active ? "font-bold text-[#590907]" : "font-medium text-[#1C1E1B]"
+                      }`}
+                    >
+                      {item.text}
+                    </span>
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+          </List>
+
+          <Divider sx={{ my: 2, borderColor: "rgba(165, 167, 155, 0.3)" }} />
+
+          <div className="flex flex-col gap-2 pt-1">
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-[#1C1E1B] hover:text-[#590907]"
+            >
+              <FaUserCircle className="text-base text-[#A5A79B]" />
+              <span>Profile Settings</span>
+            </Link>
+            <button
+              onClick={logout}
+              className="w-full flex items-center justify-center gap-2 py-2 px-4 text-sm font-semibold text-[#590907] border border-[#590907] rounded-full hover:bg-[#590907] hover:text-[#FDFBF7] transition"
+            >
+              <MdLogout className="text-base" />
+              <span>Sign Out</span>
+            </button>
           </div>
         </Box>
       </Drawer>
@@ -117,4 +162,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarHome;
