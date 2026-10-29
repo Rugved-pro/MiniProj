@@ -1,0 +1,10 @@
+{
+  "user:e5df00ecb9c44081df4aabfa": {
+    "value": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNWRmMDBlY2I5YzQ0MDgxZGY0YWFiZmEiLCJpYXQiOjE3OTMzMDI5OTksImV4cCI6MTc5NTg5NDk5OX0.WG_l8mspBDwPl7dyHoefk3ml0eOoywOyq46zzrKMnFU\",\"_id\":\"e5df00ecb9c44081df4aabfa\",\"name\":\"Test Farmer\",\"password\":\"$2a$12$LMK80dFlUI6dLW9OqmYQt.ATbo1Q3dsSWwznIGyVF8sRM4hwVT.h.\",\"gender\":\"M\",\"dob\":\"15-08-1995\",\"phoneno\":\"9876543210\",\"crops\":[\"Wheat\",\"Rice\"]}",
+    "expiresAt": 1795894999631
+  },
+  "user:ba185ff2d7da204cd763a2fd": {
+    "value": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYTE4NWZmMmQ3ZGEyMDRjZDc2M2EyZmQiLCJpYXQiOjE3OTMzMDM0ODgsImV4cCI6MTc5NTg5NTQ4OH0.0Mcy8RIJpXf25Q-6Bqhuy4ob1vNm48ygFixzlnONKnA\",\"_id\":\"ba185ff2d7da204cd763a2fd\",\"name\":\"anya\",\"password\":\"$2a$12$hBAjD3Jfx5BolbPZGJvse.jWUvOZ5M/wP9GBP8EVP1X.gfV6ArHWa\",\"gender\":\"M\",\"dob\":\"04/04/2004\",\"phoneno\":\"9920140691\",\"crops\":[\"Rice\",\"Wheat\",\"Corn\",\"Potato\",\"Sugarcane\"]}",
+    "expiresAt": 1795895488077
+  }
+}
