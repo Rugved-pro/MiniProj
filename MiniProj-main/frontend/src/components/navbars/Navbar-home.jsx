@@ -8,16 +8,15 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { MdOutlineTaskAlt, MdOutlineQueryStats } from "react-icons/md";
+import { MdAnalytics, MdOutlineTaskAlt, MdOutlineQueryStats } from "react-icons/md";
 import HomeIcon from "@mui/icons-material/Home";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { MdLogout } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const { logout } = useLogout();
 
@@ -47,6 +46,12 @@ const Navbar = () => {
       link: "#contact-id"
     },
     {
+      text: "Soil Analyzer",
+      icon: <MdAnalytics />,
+      type: "page",
+      link: "/soil-intelligence"
+    },
+    {
       text: "Cart",
       icon: <ShoppingCartRoundedIcon />,
       type: "page",
@@ -62,15 +67,18 @@ const Navbar = () => {
       <div className="navbar-links-container hidden md:flex ml-4">
         <a href="" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Welcome</a>
 
-        <a href="#testimonial-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Statistics</a>
+        <a href="#statistics-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Statistics</a>
 
         <a href="#new-activities-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">New</a>
 
         <a href="#contact-id" className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500">Contact</a>
 
-        <a onClick={() => navigate("/marketplace")} href="" className="hover:text-orange-500">
+        <Link to="/soil-intelligence" className="relative inline-block px-3 py-2 text-black hover:text-orange-500">
+          Soil Analyzer
+        </Link>
+        <Link to="/marketplace" aria-label="Marketplace" className="hover:text-orange-500">
           <BsCart2 className="navbar-cart-icon" />
-        </a>
+        </Link>
         <button onClick={logout} className="primary-button text-black">Logout</button>
       </div>
       <div className="navbar-menu-container md:hidden">

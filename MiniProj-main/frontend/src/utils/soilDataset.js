@@ -25,7 +25,7 @@ export const SOIL_FIELDS = [
 
 const FIELD_ALIASES = [
     ["soilTemperature", (header) => /soil.*temp|temp.*soil/.test(header)],
-    ["growthStage", (header) => /growthstage|cro pcoefficientstage|cropcoefficientstage|stage/.test(header)],
+    ["growthStage", (header) => /growthstage|cropcoefficientstage|stage/.test(header)],
     ["cropCoefficient", (header) => /cropcoefficient|(^|[^a-z])kc([^a-z]|$)/.test(header)],
     ["referenceET", (header) => /referenceevapotranspiration|eto|referenceet/.test(header)],
     ["evapotranspiration", (header) => /evapotranspiration|etc/.test(header)],
@@ -63,7 +63,10 @@ function getField(header) {
 
 function getUnit(header) {
     const unit = String(header).match(/\[([^\]]+)\]|\(([^)]+)\)/)?.slice(1).find(Boolean)?.trim();
-    return unit || null;
+    if (!unit) return null;
+    if (/^[_°\s]*c$/i.test(unit)) return "°C";
+    if (/^(m3\/m3|m³\/m³)$/i.test(unit)) return "m³/m³";
+    return unit;
 }
 
 function parseNumeric(value) {
@@ -101,7 +104,7 @@ export function normalizeSoilTable(headers, tableRows, fileName) {
                     if (rawValue instanceof Date && !Number.isNaN(rawValue.getTime())) {
                         values.timestamp = rawValue.toISOString();
                     } else if (typeof rawValue === "string" && rawValue.trim()) {
-                        const timestamp = new Date(rawValue);
+                        const timestamp = new Date(rawValue.trim());
                         values.timestamp = Number.isNaN(timestamp.getTime()) ? null : timestamp.toISOString();
                     } else {
                         values.timestamp = null;

@@ -43,6 +43,11 @@ const Navbar = () => {
             link: "/dashboard"
         },
         {
+            text: "Soil Analyzer",
+            icon: <MdAnalytics className="text-xl" />,
+            link: "/soil-intelligence"
+        },
+        {
             text: "MarketPlace",
             icon: <ShoppingCartRoundedIcon />,
             link: "/marketplace"
@@ -83,6 +88,12 @@ const Navbar = () => {
                     className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500"
                 >
                     Dashboard
+                </Link>
+                <Link
+                    to="/soil-intelligence"
+                    className="relative inline-block px-3 py-2 text-black after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[3px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full hover:after:bg-orange-500 hover:text-orange-500"
+                >
+                    Soil Analyzer
                 </Link>
                 <Link
                     to="/history"

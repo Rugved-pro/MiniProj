@@ -77,7 +77,7 @@ const Profile = () => {
 								<b className="text-gray-800">DOB: </b>
 								{authUser.dob}
 							</p>
-							<p>
+							<div>
 								<b className="text-gray-800">Crops you grow: </b>
 								<ul className="ml-5">
 									{authUser.crops.map((crop, _idx) => {
@@ -90,7 +90,7 @@ const Profile = () => {
 										);
 									})}
 								</ul>
-							</p>
+							</div>
 							<p>
 								<b className="text-gray-800">Location: </b>
 								{myDistrict}

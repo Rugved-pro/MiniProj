@@ -44,32 +44,51 @@ const FoodGalleryPage = () => {
 		<>
 			<Navbar />
 			<Box marginTop={5}>
-				<Box display="flex" flexDirection="row">
-					<Box m={5} marginTop={1} marginLeft={9} sx={{
+				<Box
+					display="flex"
+					flexDirection={{ xs: "column", md: "row" }}
+					alignItems={{ xs: "stretch", md: "flex-start" }}
+				>
+					<Box m={{ xs: 2, md: 5 }} marginTop={1} marginLeft={{ xs: 0, md: 9 }} sx={{
 						border: "2px solid black",
 						bgcolor: "white",
-						width: "650px",
+						width: { xs: "auto", md: "650px" },
+						boxSizing: "border-box",
+						display: "flex",
+						alignItems: "center",
 					}}>
 						<InputBase
 							sx={{
-								width: "600px",
+								width: { xs: "calc(100% - 48px)", md: "600px" },
+								minWidth: 0,
 								height: "40px",
 								input: {
 									cursor: "text",
 									paddingLeft: "1rem",
 									fontSize: "1rem",
 									color: "black",
+									boxSizing: "border-box",
 								},
 							}}
 							placeholder='Search for farm equipments'
 							value={search}
 							onChange={(e) => { setSearch(e.target.value) }}
 						/>
-						<IconButton>
+						<IconButton
+							type="button"
+							aria-label="Search products"
+							onClick={() => setSearch((current) => current.trim())}
+						>
 							<SearchIcon />
 						</IconButton>
 					</Box>
-					<Box>
+					<Box
+						display="flex"
+						flexWrap="wrap"
+						alignItems="center"
+						justifyContent={{ xs: "center", md: "flex-start" }}
+						sx={{ px: { xs: 1, md: 0 } }}
+					>
 						<Button variant="contained" onClick={() => navigate(`/marketplace/sell`)} sx={{
 							height: "40px",
 							width: "100px",

@@ -8,12 +8,8 @@ const ParticlesContainer = () =>{
         await loadFull(engine);
     },[]);
 
-    const particlesLoaded = useCallback(async()=>{
-        console.log("Particles loaded:", container);
-    },[]);
-
     return(
-        <Particles className='w-screen min-h-screen absolute particles-container' id='tsparticles' init={particlesInit} loaded={particlesLoaded} 
+        <Particles className='w-screen min-h-screen absolute particles-container' id='tsparticles' init={particlesInit}
         options={{
             fullscreen : {enable:false},
             background : {

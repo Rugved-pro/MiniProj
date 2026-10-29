@@ -256,7 +256,7 @@
 
 @media (max-width: 700px) {
     .soil-intelligence__content {
-        width: min(100% - 20px, 1120px);
+        width: calc(100% - 20px);
     }
 
     .soil-intelligence__card {

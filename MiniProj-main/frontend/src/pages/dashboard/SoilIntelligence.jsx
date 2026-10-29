@@ -62,6 +62,16 @@ function inferStage(value) {
     return "";
 }
 
+function formatAge(milliseconds) {
+    if (milliseconds < 0) return "timestamp is in the future; verify the dataset clock";
+    const minutes = Math.floor(milliseconds / 60000);
+    if (minutes < 60) return `recorded ${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 48) return `recorded ${hours} hour${hours === 1 ? "" : "s"} ago`;
+    const days = Math.floor(hours / 24);
+    return `recorded ${days} day${days === 1 ? "" : "s"} ago`;
+}
+
 const SoilIntelligence = () => {
     const inputRef = useRef(null);
     const [dataset, setDataset] = useState(null);
@@ -75,7 +85,11 @@ const SoilIntelligence = () => {
     const [rootDepth, setRootDepth] = useState("");
     const [trendField, setTrendField] = useState("");
 
-    const latestRow = dataset?.rows[dataset.rows.length - 1] ?? null;
+    const latestRow = dataset
+        ? dataset.latestTimestamp
+            ? dataset.rows.find((row) => row.timestamp === dataset.latestTimestamp)
+            : dataset.rows[dataset.rows.length - 1]
+        : null;
     const availableKeys = useMemo(
         () => dataset?.availableFields.map((field) => field.key) ?? [],
         [dataset]
@@ -126,9 +140,15 @@ const SoilIntelligence = () => {
 
     const latestTimestamp = dataset?.latestTimestamp ? new Date(dataset.latestTimestamp) : null;
     const fileRecordAge = latestTimestamp ? Date.now() - latestTimestamp.getTime() : null;
-    const trendRows = dataset?.rows.filter((row) => typeof row[trendField] === "number").slice(-60) ?? [];
-    const timestampAvailable = trendRows.length > 1 && trendRows.every((row) => row.timestamp);
-    const ageAvailable = trendRows.length > 1 && trendRows.every((row) => Number.isFinite(row.daysPlanted));
+    const rawTrendRows = dataset?.rows.filter((row) => typeof row[trendField] === "number") ?? [];
+    const timestampAvailable = rawTrendRows.length > 1 && rawTrendRows.every((row) => row.timestamp);
+    const ageAvailable = rawTrendRows.length > 1 && rawTrendRows.every((row) => Number.isFinite(row.daysPlanted));
+    const orderedTrendRows = timestampAvailable
+        ? [...rawTrendRows].sort((a, b) => a.timestamp.localeCompare(b.timestamp))
+        : ageAvailable
+            ? [...rawTrendRows].sort((a, b) => a.daysPlanted - b.daysPlanted)
+            : rawTrendRows;
+    const trendRows = orderedTrendRows.slice(-60);
     const trendLabels = trendRows.map((row) => timestampAvailable
         ? new Date(row.timestamp).toLocaleDateString()
         : ageAvailable
@@ -207,7 +227,7 @@ const SoilIntelligence = () => {
                             <span>{dataset.fileName} · {dataset.rows.length.toLocaleString()} readings · imported {new Date(dataset.importedAt).toLocaleString()}</span>
                             <span>
                                 {latestTimestamp
-                                    ? `Most recent recorded measurement: ${latestTimestamp.toLocaleString()}${fileRecordAge > 24 * 60 * 60 * 1000 ? " (historical; upload newer readings for current advice)" : ""}`
+                                    ? `Most recent recorded measurement: ${latestTimestamp.toLocaleString()} (${formatAge(fileRecordAge)}; no sensor reporting interval is configured)`
                                     : "No timestamp column found; data freshness is unknown."}
                             </span>
                         </div>
@@ -241,6 +261,9 @@ const SoilIntelligence = () => {
                             {dataset.availableFields.every((field) => !["soilMoisture", "pH", "electricalConductivity", "nitrogen", "phosphorus", "potassium", "soilTemperature", "ambientTemperature", "humidity"].includes(field.key)) && (
                                 <p className="soil-intelligence__empty">No soil measurements were recognized in this file. Available columns are shown in the import details below.</p>
                             )}
+                            <p className="soil-intelligence__notice">
+                                Condition alerts for pH, EC, and N/P/K are not classified: local crop thresholds, soil-test method, and calibration are not included. Moisture irrigation guidance is shown only when its required units and soil inputs are supplied below.
+                            </p>
                         </section>
 
                         <section className="soil-intelligence__card">
@@ -286,7 +309,7 @@ const SoilIntelligence = () => {
                                     <p className="soil-intelligence__crop-rule">
                                         {crop}: reference no-stress depletion fraction {Math.round(CROP_SOIL_RULES[crop].depletionFraction * 100)}% ({CROP_SOIL_RULES[crop].sourceCrop}, {CROP_SOIL_RULES[crop].source}).
                                     </p>
-                                    <p className="soil-intelligence__notice">{CROP_SOIL_RULES[crop].note} The effective root depth and soil water limits below must come from field measurements or local agronomic advice.</p>
+                                    <p className="soil-intelligence__notice">{CROP_SOIL_RULES[crop].note} The effective root depth and soil water limits below must come from field measurements or local agronomic advice. Historical rainfall, if present, is not a forecast and is not used to calculate irrigation timing.</p>
 
                                     <div className="soil-intelligence__advisor-form">
                                         <label>
@@ -322,12 +345,12 @@ const SoilIntelligence = () => {
                                         <p className="soil-intelligence__empty" role="status">{irrigationAssessment.reason}</p>
                                     ) : (
                                         <div className={`soil-intelligence__decision soil-intelligence__decision--${irrigationAssessment.status}`} role="status">
-                                            <strong>{irrigationAssessment.status === "irrigate" ? "Irrigation may be needed" : "Irrigation can be postponed"}</strong>
+                                            <strong>At this uploaded reading: {irrigationAssessment.status === "irrigate" ? "irrigation may be needed" : "the irrigation threshold has not been reached"}</strong>
                                             <span>
                                                 Estimated root-zone depletion: {irrigationAssessment.depletionMm.toFixed(1)} mm of {irrigationAssessment.totalAvailableWaterMm.toFixed(1)} mm total available water
                                                 ({(irrigationAssessment.depletionFraction * 100).toFixed(0)}%; this crop's reference threshold is {(irrigationAssessment.allowedDepletionFraction * 100).toFixed(0)}%).
                                             </span>
-                                            <span>Reassess with a fresh, calibrated soil reading and check local rainfall/weather before irrigating. Water volume is not estimated because area, application efficiency, and water balance are unavailable.</span>
+                                            <span>This estimate applies only to the uploaded row; it is not live or forecasted advice. Verify with a fresh, calibrated reading before irrigating, and reassess at the next scheduled field reading and after rainfall. A fixed reassessment interval and water volume cannot be supported by this dataset.</span>
                                         </div>
                                     )}
                                     <p className="soil-intelligence__source">

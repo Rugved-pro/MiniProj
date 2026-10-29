@@ -36,7 +36,7 @@ const Functionality = () => {
   }, []);
 
   return (
-    <div className="contact-page-wrapper flex flex-col items-center justify-center min-h-screen" id="contact-id">
+    <div className="contact-page-wrapper flex flex-col items-center justify-center min-h-screen">
       <h1 className="primary-heading text-center mb-8" id="new-activities-id">
         NEW ACTIVITIES
       </h1>

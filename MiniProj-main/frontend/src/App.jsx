@@ -15,6 +15,7 @@ import History from "./pages/history/History";
 import Dashboard from "./pages/dashboard/Dashboard";
 import PersonalDashboard from "./pages/dashboard/PersonalDashboard";
 import RegionalDashboard from "./pages/dashboard/RegionalDashboard";
+import SoilIntelligence from "./pages/dashboard/SoilIntelligence";
 import Profile from "./pages/profile/Profile";
 import MarketPlace from "./pages/marketplace/Marketplace";
 import MarketplaceBuy from "./pages/marketplace/MarketplaceBuy";
@@ -49,6 +50,7 @@ function App() {
         <Route path="/upload" element={authUser ? <Upload /> : <Navigate to={"/"} />} />
         <Route path="/history" element={authUser ? <History /> : <Navigate to={"/"} />} />
         <Route path="/dashboard" element={authUser ? <Dashboard /> : <Navigate to={"/"} />} />
+        <Route path="/soil-intelligence" element={authUser ? <SoilIntelligence /> : <Navigate to={"/"} />} />
         <Route path="/dashboard/personal" element={authUser ? <PersonalDashboard /> : <Navigate to={"/"} />} />
         <Route path="/dashboard/:district" element={authUser ? <RegionalDashboard /> : <Navigate to={"/"} />} />
         <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/"} />} />
