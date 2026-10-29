@@ -62,7 +62,7 @@ const Navbar = () => {
     return (
         <nav className="px-3">
             <div className="nav-logo-container">
-                <img src="/KisanSahayak.png" alt="logo" className="h-[30px] w-full" />
+                <span className="brand-wordmark">KisanSahayak</span>
             </div>
             <div className="navbar-links-container hidden md:flex ml-4">
                 <Link

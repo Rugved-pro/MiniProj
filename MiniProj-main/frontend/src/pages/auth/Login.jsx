@@ -24,14 +24,15 @@ const Login = () => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen min-w-screen bg-cover bg-center" style={{ backgroundImage: "url('bg.jpg')" }}>
-      <div className="w-11/12 max-w-md bg-yellow-100 p-14 text-center rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-yellow-700">Login</h1>
-        <div className="w-8 h-1 bg-yellow-700 mx-auto my-4 rounded-full"></div>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-brand">KisanSahayak</div>
+        <h1>Welcome back</h1>
+        <p className="auth-intro">Sign in to check on your crops and continue where you left off.</p>
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
-            <div className="flex items-center bg-gray-200 rounded-lg">
+            <div className="auth-field flex items-center rounded-lg">
               <FaPhoneAlt className="fa-solid fa-phone ml-4 text-gray-500" />
               <input
                 type="text"
@@ -41,7 +42,7 @@ const Login = () => {
                 onChange={(e) => setInputs({ ...inputs, phoneno: e.target.value })}
               />
             </div>
-            <div className="flex items-center bg-gray-200 rounded-lg">
+            <div className="auth-field flex items-center rounded-lg">
               <RiLockPasswordFill className="fa-solid fa-phone ml-4 text-gray-500" />
               <input
                 type={secure ? "password" : "text"}
@@ -55,11 +56,11 @@ const Login = () => {
                   e.preventDefault();
                   setSecure(!secure);
                 }}
-                className="bg-transparent hover:bg-slate-200"
+                className="bg-transparent hover:bg-gray-200"
               ><HiMiniEyeSlash className="fa-solid fa-phone mr-4 text-gray-500" /></button>
             </div>
 
-            <div className="flex justify-between items-center text-green-700">
+            <div className="auth-options flex justify-between items-center">
               <label className="flex items-center">
                 <input type="checkbox" className="mr-2" /> Remember Me
               </label>
@@ -68,12 +69,12 @@ const Login = () => {
           </div>
 
           <div className="flex justify-center mt-8">
-            <button className="w-full bg-yellow-700 text-white py-2 rounded-full hover:bg-yellow-600 transition-colors" disabled={loading}>
+            <button className="w-full py-2" disabled={loading}>
               {loading ? <Spinner /> : "Login"}
             </button>
           </div>
 
-          <Link to="/signup" className="text-green-700 mt-4 hover:underline hover:text-green-900">{"Don't"} have an Account? Signup</Link>
+          <Link to="/signup" className="auth-link">{"Don't"} have an account? Sign up</Link>
         </form>
       </div>
     </div>

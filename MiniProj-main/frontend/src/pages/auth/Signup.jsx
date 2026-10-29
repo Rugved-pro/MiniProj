@@ -46,17 +46,15 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      className="flex items-center justify-center min-h-screen min-w-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('bg.jpg')" }}
-    >
-      <div className="w-11/12 max-w-md bg-yellow-100 p-14 text-center rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-yellow-700">Sign Up</h1>
-        <div className="w-8 h-1 bg-yellow-700 mx-auto my-4 rounded-full"></div>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-brand">KisanSahayak</div>
+        <h1>Create your account</h1>
+        <p className="auth-intro">A few details help us tailor crop guidance to your farm.</p>
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
-            <div className="flex items-center bg-gray-200 rounded-lg">
+            <div className="auth-field flex items-center rounded-lg">
               <FaUser className="ml-4 text-gray-500" />
               <input
                 type="text"
@@ -66,7 +64,7 @@ const SignUp = () => {
                 onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
               />
             </div>
-            <div className="flex items-center bg-gray-200 rounded-lg">
+            <div className="auth-field flex items-center rounded-lg">
               <FaPhoneAlt className="ml-4 text-gray-500" />
               <input
                 type="text"
@@ -76,7 +74,7 @@ const SignUp = () => {
                 onChange={(e) => setInputs({ ...inputs, phoneno: e.target.value })}
               />
             </div>
-            <div className="flex items-center bg-gray-200 rounded-lg space-x-2">
+            <div className="auth-field flex items-center rounded-lg space-x-2">
               <FaCalendarAlt className="ml-4 text-gray-500" />
               <input
                 type="text"
@@ -100,7 +98,7 @@ const SignUp = () => {
                 onChange={(e) => setInputs({ ...inputs, year: e.target.value })}
               />
             </div>
-            <div className="flex items-center bg-gray-200 rounded-lg">
+            <div className="auth-field flex items-center rounded-lg">
               <RiLockPasswordFill className="ml-4 text-gray-500" />
               <input
                 type={secure ? "password" : "text"}
@@ -115,12 +113,12 @@ const SignUp = () => {
                   e.preventDefault();
                   setSecure(!secure);
                 }}
-                className="bg-transparent hover:bg-slate-200"
+                className="bg-transparent hover:bg-gray-200"
               >
                 <HiMiniEyeSlash className="mr-4 text-gray-500" />
               </button>
             </div>
-            <div className="flex justify-around text-brown-600">
+            <div className="auth-options flex justify-around">
               <label className="flex items-center">
                 <input
                   type="radio"
@@ -154,7 +152,7 @@ const SignUp = () => {
             </div>
 
             {/*Dropdown*/}
-            <div className="bg-gray-200 rounded-lg">
+            <div className="auth-field rounded-lg">
               <div className="flex items-center px-4 py-2">
                 <FaBowlFood className="mr-4 text-gray-500" />
                 <Select
@@ -162,6 +160,7 @@ const SignUp = () => {
                   value={cropList}
                   onChange={handleCropChange}
                   isMulti={true}
+                  classNamePrefix="auth-select"
                   className="w-full"
                 />
               </div>
@@ -170,12 +169,12 @@ const SignUp = () => {
           </div>
 
           <div className="flex justify-center mt-8">
-            <button className="w-full bg-yellow-700 text-white py-2 rounded-full hover:bg-yellow-600 transition-colors" disabled={loading}>
+            <button className="w-full py-2" disabled={loading}>
               {loading ? <Spinner /> : "Sign Up"}
             </button>
           </div>
 
-          <Link to="/login" className="text-green-700 mt-4 block hover:underline hover:text-green-900">Already have an Account? Login</Link>
+          <Link to="/login" className="auth-link">Already have an account? Log in</Link>
         </form>
       </div>
     </div>
