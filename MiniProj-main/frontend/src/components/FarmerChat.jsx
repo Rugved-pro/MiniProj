@@ -1,0 +1,164 @@
+import { useEffect, useRef, useState } from "react";
+import { IoChatbubbleEllipsesOutline, IoClose, IoSend } from "react-icons/io5";
+import "./FarmerChat.css";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1";
+const SUGGESTIONS = [
+    "How can I improve my soil health?",
+    "What are early signs of crop disease?",
+    "How can I save water when irrigating?"
+];
+
+const FarmerChat = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState([]);
+    const [input, setInput] = useState("");
+    const [isSending, setIsSending] = useState(false);
+    const [error, setError] = useState("");
+    const messageListRef = useRef(null);
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (isOpen) inputRef.current?.focus();
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (messageListRef.current) {
+            messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+        }
+    }, [messages, isSending]);
+
+    const sendMessage = async (messageText = input) => {
+        const text = messageText.trim();
+        if (!text || isSending) return;
+
+        const conversation = [...messages, { role: "user", content: text }];
+        setMessages(conversation);
+        setInput("");
+        setError("");
+        setIsSending(true);
+
+        try {
+            const response = await fetch(`${API_URL}/chat`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messages: conversation })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || "The assistant could not answer. Please try again.");
+            }
+            setMessages([...conversation, { role: "assistant", content: data.reply }]);
+        } catch (requestError) {
+            setMessages(messages);
+            setInput(text);
+            setError(requestError.message || "Could not reach the assistant. Check your connection and try again.");
+        } finally {
+            setIsSending(false);
+        }
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        sendMessage();
+    };
+
+    return (
+        <div className="farmer-chat">
+            {isOpen && (
+                <section className="farmer-chat__panel" aria-label="Farmer assistant">
+                    <header className="farmer-chat__header">
+                        <div>
+                            <strong>Farmer Assistant</strong>
+                            <span>Ask about crops, soil, and farming</span>
+                        </div>
+                        <button
+                            type="button"
+                            className="farmer-chat__close"
+                            aria-label="Close chat"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <IoClose aria-hidden="true" />
+                        </button>
+                    </header>
+
+                    <div className="farmer-chat__messages" ref={messageListRef} aria-live="polite">
+                        {messages.length === 0 ? (
+                            <div className="farmer-chat__welcome">
+                                <p>Namaste! I can help with general farming questions. What would you like to know?</p>
+                                <div className="farmer-chat__suggestions">
+                                    {SUGGESTIONS.map((suggestion) => (
+                                        <button
+                                            type="button"
+                                            key={suggestion}
+                                            disabled={isSending}
+                                            onClick={() => sendMessage(suggestion)}
+                                        >
+                                            {suggestion}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            messages.map((message, index) => (
+                                <p
+                                    className={`farmer-chat__message farmer-chat__message--${message.role}`}
+                                    key={`${message.role}-${index}`}
+                                >
+                                    {message.content}
+                                </p>
+                            ))
+                        )}
+                        {isSending && <p className="farmer-chat__typing" role="status">Thinking…</p>}
+                    </div>
+
+                    {error && <p className="farmer-chat__error" role="alert">{error}</p>}
+
+                    <form className="farmer-chat__form" onSubmit={handleSubmit}>
+                        <label className="farmer-chat__visually-hidden" htmlFor="farmer-chat-input">
+                            Ask a farming question
+                        </label>
+                        <textarea
+                            id="farmer-chat-input"
+                            ref={inputRef}
+                            value={input}
+                            maxLength={4000}
+                            rows={1}
+                            placeholder="Type your question…"
+                            onChange={(event) => setInput(event.target.value)}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter" && !event.shiftKey) {
+                                    event.preventDefault();
+                                    sendMessage();
+                                }
+                            }}
+                        />
+                        <button
+                            type="submit"
+                            aria-label="Send message"
+                            disabled={!input.trim() || isSending}
+                        >
+                            <IoSend aria-hidden="true" />
+                        </button>
+                    </form>
+                    <p className="farmer-chat__disclaimer">
+                        AI answers can be imperfect. Follow local agricultural guidance.
+                    </p>
+                </section>
+            )}
+
+            <button
+                type="button"
+                className="farmer-chat__toggle"
+                aria-label={isOpen ? "Close farmer assistant" : "Open farmer assistant"}
+                aria-expanded={isOpen}
+                onClick={() => setIsOpen((open) => !open)}
+            >
+                {isOpen ? <IoClose aria-hidden="true" /> : <IoChatbubbleEllipsesOutline aria-hidden="true" />}
+                <span>{isOpen ? "Close" : "Ask a farmer question"}</span>
+            </button>
+        </div>
+    );
+};
+
+export default FarmerChat;
