@@ -1,0 +1,577 @@
+{
+  "users": [
+    {
+      "_id": "aba0ab017a0795da1a8d4877",
+      "name": "Chris",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699510",
+      "password": "$2a$12$wqdFQgDEqNCBqkAMPD1YM.9mlbvd6esJ6CmuRfVJfNQczyd7wQvIK",
+      "crops": [
+        "Rice",
+        "Corn"
+      ],
+      "createdAt": "2026-10-29T19:44:54.068Z",
+      "updatedAt": "2026-10-29T19:44:54.076Z"
+    },
+    {
+      "_id": "ba185ff2d7da204cd763a2fd",
+      "name": "anya",
+      "gender": "M",
+      "dob": "04/04/2004",
+      "phoneno": "9920140691",
+      "password": "$2a$12$hBAjD3Jfx5BolbPZGJvse.jWUvOZ5M/wP9GBP8EVP1X.gfV6ArHWa",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Corn",
+        "Potato",
+        "Sugarcane"
+      ],
+      "createdAt": "2026-10-29T19:51:28.057Z",
+      "updatedAt": "2026-10-29T19:51:28.061Z"
+    },
+    {
+      "_id": "02a21c18d25dc01e61432eea",
+      "name": "maake",
+      "gender": "M",
+      "dob": "12/12/2012",
+      "phoneno": "1212121212",
+      "password": "$2a$12$9VpR2NG3kRVCBuLE9N4tXue.PfNEKzAT57y8QIoYTCXkBCmhFQeYi",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Corn",
+        "Potato",
+        "Sugarcane"
+      ],
+      "createdAt": "2026-10-29T21:19:49.441Z",
+      "updatedAt": "2026-10-29T21:19:49.443Z"
+    }
+  ],
+  "deletedUsers": [],
+  "predictions": [
+    {
+      "_id": "0f71ab0cd66ac989d5dc8ba9",
+      "userId": "aba0ab017a0795da1a8d4877",
+      "url": "http://localhost:5000/uploads/img_1793303156359_co8gh2.png",
+      "location": "BANKURA",
+      "crop": "Rice",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Neck_Blast",
+      "disease_details": [
+        "Neck blast is caused by the fungus *Magnaporthe oryzae*, similar to leaf blast but affects the neck of the rice panicle.",
+        "It can lead to complete grain loss if untreated."
+      ],
+      "recomm": [
+        "Use resistant varieties and apply nitrogen fertilizers judiciously.",
+        "Apply fungicides at the heading stage to prevent the disease."
+      ],
+      "pesticides": [
+        "Isoprothiolane",
+        "Tricyclazole"
+      ],
+      "createdAt": "2026-10-29T19:46:00.491Z",
+      "updatedAt": "2026-10-29T19:46:00.493Z"
+    },
+    {
+      "_id": "9ed2189e083cef206bd39e90",
+      "userId": "aba0ab017a0795da1a8d4877",
+      "url": "http://localhost:5000/uploads/img_1793303219947_4xycgy.png",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Brown_Rust",
+      "disease_details": [
+        "Brown rust, also known as leaf rust, is caused by the fungus *Puccinia triticina*.",
+        "It affects wheat leaves and reduces grain yield and quality."
+      ],
+      "recomm": [
+        "Plant resistant wheat varieties and monitor fields regularly.",
+        "Apply fungicides at the early signs of the disease."
+      ],
+      "pesticides": [
+        "Propiconazole",
+        "Tebuconazole"
+      ],
+      "createdAt": "2026-10-29T19:47:02.193Z",
+      "updatedAt": "2026-10-29T19:47:02.196Z"
+    },
+    {
+      "_id": "d0473a6b533cfd42e652d0ac",
+      "userId": "aba0ab017a0795da1a8d4877",
+      "url": "http://localhost:5000/uploads/img_1793303240372_21b61p.jpg",
+      "location": "BANKURA",
+      "crop": "Corn",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Healthy",
+      "disease_details": [],
+      "recomm": [],
+      "pesticides": [],
+      "createdAt": "2026-10-29T19:47:22.601Z",
+      "updatedAt": "2026-10-29T19:47:22.604Z"
+    },
+    {
+      "_id": "c03095e0c9bea6e415354c33",
+      "userId": "aba0ab017a0795da1a8d4877",
+      "url": "http://localhost:5000/uploads/img_1793303296923_wu0dnz.webp",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Brown_Rust",
+      "disease_details": [
+        "Brown rust, also known as leaf rust, is caused by the fungus *Puccinia triticina*.",
+        "It affects wheat leaves and reduces grain yield and quality."
+      ],
+      "recomm": [
+        "Plant resistant wheat varieties and monitor fields regularly.",
+        "Apply fungicides at the early signs of the disease."
+      ],
+      "pesticides": [
+        "Propiconazole",
+        "Tebuconazole"
+      ],
+      "createdAt": "2026-10-29T19:48:20.568Z",
+      "updatedAt": "2026-10-29T19:48:20.571Z"
+    },
+    {
+      "_id": "a9e32b6c3386f1969aae795f",
+      "userId": "aba0ab017a0795da1a8d4877",
+      "url": "http://localhost:5000/uploads/img_1793303320157_47cowj.jpg",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Yellow_Rust",
+      "disease_details": [
+        "Yellow rust, also known as stripe rust, is caused by the fungus *Puccinia striiformis*.",
+        "It appears as yellow pustules on wheat leaves, affecting photosynthesis."
+      ],
+      "recomm": [
+        "Grow resistant varieties and use balanced fertilizers.",
+        "Apply fungicides preventively in areas prone to rust."
+      ],
+      "pesticides": [
+        "Tebuconazole",
+        "Azoxystrobin"
+      ],
+      "createdAt": "2026-10-29T19:48:42.581Z",
+      "updatedAt": "2026-10-29T19:48:42.584Z"
+    },
+    {
+      "_id": "2f953fc5871d38ec5bb1428c",
+      "userId": "ba185ff2d7da204cd763a2fd",
+      "url": "http://localhost:5000/uploads/img_1793303533420_cgjvu4.webp",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Brown_Rust",
+      "disease_details": [
+        "Brown rust, also known as leaf rust, is caused by the fungus *Puccinia triticina*.",
+        "It affects wheat leaves and reduces grain yield and quality."
+      ],
+      "recomm": [
+        "Plant resistant wheat varieties and monitor fields regularly.",
+        "Apply fungicides at the early signs of the disease."
+      ],
+      "pesticides": [
+        "Propiconazole",
+        "Tebuconazole"
+      ],
+      "createdAt": "2026-10-29T19:52:16.114Z",
+      "updatedAt": "2026-10-29T19:52:16.117Z"
+    },
+    {
+      "_id": "096fb60f900fdd58931a7499",
+      "userId": "ba185ff2d7da204cd763a2fd",
+      "url": "http://localhost:5000/uploads/img_1793303557950_gxln70.webp",
+      "location": "BANKURA",
+      "crop": "Corn",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Healthy",
+      "disease_details": [],
+      "recomm": [],
+      "pesticides": [],
+      "createdAt": "2026-10-29T19:52:40.670Z",
+      "updatedAt": "2026-10-29T19:52:40.674Z"
+    },
+    {
+      "_id": "c4e61a312452e3b3b13c285a",
+      "userId": "ba185ff2d7da204cd763a2fd",
+      "url": "http://localhost:5000/uploads/img_1793303593351_in0d6p.jpg",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Healthy",
+      "disease_details": [],
+      "recomm": [],
+      "pesticides": [],
+      "createdAt": "2026-10-29T19:53:16.369Z",
+      "updatedAt": "2026-10-29T19:53:16.372Z"
+    },
+    {
+      "_id": "979246617a66e5882cfa62ff",
+      "userId": "ba185ff2d7da204cd763a2fd",
+      "url": "http://localhost:5000/uploads/img_1793303628702_q1zvnp.webp",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Brown_Rust",
+      "disease_details": [
+        "Brown rust, also known as leaf rust, is caused by the fungus *Puccinia triticina*.",
+        "It affects wheat leaves and reduces grain yield and quality."
+      ],
+      "recomm": [
+        "Plant resistant wheat varieties and monitor fields regularly.",
+        "Apply fungicides at the early signs of the disease."
+      ],
+      "pesticides": [
+        "Propiconazole",
+        "Tebuconazole"
+      ],
+      "createdAt": "2026-10-29T19:53:51.054Z",
+      "updatedAt": "2026-10-29T19:53:51.057Z"
+    },
+    {
+      "_id": "52445590c042fa82cf593b91",
+      "userId": "02a21c18d25dc01e61432eea",
+      "url": "http://localhost:5000/uploads/img_1793308817613_kmat04.jpg",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Early_Blight",
+      "disease_details": [
+        "Early blight is caused by the fungus *Alternaria solani*.",
+        "It affects older leaves first, creating concentric rings or lesions."
+      ],
+      "recomm": [
+        "Use certified, disease-free seed potatoes and rotate crops.",
+        "Ensure good air circulation and avoid overhead irrigation."
+      ],
+      "pesticides": [
+        "Mancozeb",
+        "Chlorothalonil"
+      ],
+      "createdAt": "2026-10-29T21:20:22.076Z",
+      "updatedAt": "2026-10-29T21:20:22.077Z"
+    },
+    {
+      "_id": "00a35f85fb9f6fad71288c38",
+      "userId": "02a21c18d25dc01e61432eea",
+      "url": "http://localhost:5000/uploads/img_1793308843276_6xam42.jpg",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Healthy",
+      "disease_details": [],
+      "recomm": [],
+      "pesticides": [],
+      "createdAt": "2026-10-29T21:20:47.678Z",
+      "updatedAt": "2026-10-29T21:20:47.679Z"
+    },
+    {
+      "_id": "842746937d326f071f6a4a5a",
+      "userId": "02a21c18d25dc01e61432eea",
+      "url": "http://localhost:5000/uploads/img_1793308860156_hidstn.jpg",
+      "location": "BANKURA",
+      "crop": "Rice",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Brown_Spot",
+      "disease_details": [
+        "Brown spot is caused by the fungus *Bipolaris oryzae*.",
+        "It primarily affects leaves, causing small, brownish oval spots."
+      ],
+      "recomm": [
+        "Apply balanced fertilizers, especially potassium.",
+        "Practice crop rotation and use resistant varieties."
+      ],
+      "pesticides": [
+        "Mancozeb",
+        "Carbendazim"
+      ],
+      "createdAt": "2026-10-29T21:21:02.555Z",
+      "updatedAt": "2026-10-29T21:21:02.556Z"
+    },
+    {
+      "_id": "545d146be97bb14136ca1a3e",
+      "userId": "02a21c18d25dc01e61432eea",
+      "url": "http://localhost:5000/uploads/img_1793308877810_t5xu11.jpg",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 303.17,
+      "hum": 58.79,
+      "disease": "Brown_Rust",
+      "disease_details": [
+        "Brown rust, also known as leaf rust, is caused by the fungus *Puccinia triticina*.",
+        "It affects wheat leaves and reduces grain yield and quality."
+      ],
+      "recomm": [
+        "Plant resistant wheat varieties and monitor fields regularly.",
+        "Apply fungicides at the early signs of the disease."
+      ],
+      "pesticides": [
+        "Propiconazole",
+        "Tebuconazole"
+      ],
+      "createdAt": "2026-10-29T21:21:20.206Z",
+      "updatedAt": "2026-10-29T21:21:20.207Z"
+    }
+  ],
+  "products": [
+    {
+      "_id": "660000000000000000000101",
+      "product_name": "Mancozeb 75% WP Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "price": 380,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000102",
+      "product_name": "Propiconazole 25% EC Systemic Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "price": 520,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000103",
+      "product_name": "Azoxystrobin & Tebuconazole Crop Shield",
+      "image_url": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "GreenField Retailers",
+      "seller_type": "retailer",
+      "price": 640,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000104",
+      "product_name": "Carbendazim & Tricyclazole Blast Guard",
+      "image_url": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Bharat Krishi Kendra",
+      "seller_type": "retailer",
+      "price": 450,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000105",
+      "product_name": "Chlorothalonil & Metalaxyl Blight Care",
+      "image_url": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Krishi Sevak Supplies",
+      "seller_type": "retailer",
+      "price": 490,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000106",
+      "product_name": "Copper Oxychloride & Streptomycin Pack",
+      "image_url": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "AgriCare India",
+      "seller_type": "retailer",
+      "price": 410,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000107",
+      "product_name": "Organic Sharbati Wheat Seeds (10kg)",
+      "image_url": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Ramesh Patil",
+      "seller_type": "farmer",
+      "price": 320,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000108",
+      "product_name": "Premium Basmati Rice Seeds (5kg)",
+      "image_url": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Suresh Deshmukh",
+      "seller_type": "farmer",
+      "price": 290,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "orders": [],
+  "payments": [],
+  "metadata": [],
+  "images": [
+    {
+      "_id": "660000000000000000000201",
+      "image_url": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80",
+      "crop": "Wheat",
+      "disease": "Brown_Rust"
+    },
+    {
+      "_id": "660000000000000000000202",
+      "image_url": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=600&q=80",
+      "crop": "Rice",
+      "disease": "Leaf_Blast"
+    },
+    {
+      "_id": "660000000000000000000203",
+      "image_url": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80",
+      "crop": "Potato",
+      "disease": "Early_Blight"
+    },
+    {
+      "_id": "660000000000000000000204",
+      "image_url": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=600&q=80",
+      "crop": "Corn",
+      "disease": "Common_Rust"
+    },
+    {
+      "_id": "660000000000000000000205",
+      "image_url": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+      "crop": "Sugarcane",
+      "disease": "Red_Rot"
+    },
+    {
+      "_id": "660000000000000000000206",
+      "image_url": "https://images.unsplash.com/photo-1437252611977-07f74518abd7?auto=format&fit=crop&w=600&q=80",
+      "crop": "Wheat",
+      "disease": "Yellow_Rust"
+    },
+    {
+      "_id": "660000000000000000000207",
+      "image_url": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
+      "crop": "Rice",
+      "disease": "Brown_Spot"
+    },
+    {
+      "_id": "660000000000000000000208",
+      "image_url": "https://images.unsplash.com/photo-1590165482129-1b8b27698780?auto=format&fit=crop&w=600&q=80",
+      "crop": "Potato",
+      "disease": "Late_Blight"
+    },
+    {
+      "_id": "660000000000000000000209",
+      "image_url": "https://images.unsplash.com/photo-1601593768799-76d6d8281e04?auto=format&fit=crop&w=600&q=80",
+      "crop": "Corn",
+      "disease": "Northern_Leaf_Blight"
+    },
+    {
+      "_id": "660000000000000000000210",
+      "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80",
+      "crop": "Wheat",
+      "disease": "Healthy"
+    }
+  ]
+}
