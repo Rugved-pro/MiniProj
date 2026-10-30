@@ -17,16 +17,23 @@ const getLocationAndWeather = async () => {
     }
 };
 
-export const fetchIPInfo = async () => {
+export const fetchIPInfo = async ({ allowFallback = true } = {}) => {
     try {
         const ip = await getLocationAndWeather();
         if (!ip) {
-            return FALLBACK_IP_INFO;
+            return allowFallback ? FALLBACK_IP_INFO : null;
         }
 
         const res = await fetch(`http://ip-api.com/json/${ip}`);
+        if (!res.ok) {
+            return allowFallback ? FALLBACK_IP_INFO : null;
+        }
         const data = await res.json();
-        if (data && data.city) {
+        if (data?.status === "success" && data.city && Number.isFinite(data.lat) && Number.isFinite(data.lon)) {
+            if (!allowFallback) {
+                return data;
+            }
+
             const existsInEnv = env_data.some(
                 (item) => item.District.toUpperCase().trim() === data.city.toUpperCase().trim()
             );
@@ -40,9 +47,9 @@ export const fetchIPInfo = async () => {
             }
             return data;
         }
-        return FALLBACK_IP_INFO;
+        return allowFallback ? FALLBACK_IP_INFO : null;
     } catch {
-        return FALLBACK_IP_INFO;
+        return allowFallback ? FALLBACK_IP_INFO : null;
     }
 };
 

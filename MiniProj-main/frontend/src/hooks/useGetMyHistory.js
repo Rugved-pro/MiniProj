@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -7,7 +7,7 @@ const useGetMyHistory = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const { authUser } = useAuthContext();
 
-    const history = async () => {
+    const history = useCallback(async () => {
         setLoading(true);
         try {
             const res = await fetch(`${apiUrl}/predictions/history/${authUser._id}`, {
@@ -29,7 +29,7 @@ const useGetMyHistory = () => {
         } finally {
             setLoading(false);
         }
-    }
+    }, [apiUrl, authUser?._id]);
     return { loading, history }
 }
 

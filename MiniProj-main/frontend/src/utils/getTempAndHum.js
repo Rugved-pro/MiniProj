@@ -26,6 +26,39 @@ async function fetchOpenMeteo(lat, lon) {
     return { avgTemp: 301.15, avgHum: 68 };
 }
 
+export const getLiveCurrentWeather = async (location) => {
+    const lat = Number(location?.lat);
+    const lon = Number(location?.lon);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+        return null;
+    }
+
+    try {
+        const params = new URLSearchParams({
+            latitude: String(lat),
+            longitude: String(lon),
+            current: "temperature_2m,relative_humidity_2m",
+            timezone: "auto",
+        });
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+        if (!response.ok) {
+            throw new Error(`Open-Meteo returned HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        const temperatureC = data?.current?.temperature_2m;
+        const humidity = data?.current?.relative_humidity_2m;
+        if (!Number.isFinite(temperatureC) || !Number.isFinite(humidity)) {
+            throw new Error("Open-Meteo response did not contain current weather readings");
+        }
+
+        return { temperatureC, humidity, time: data.current.time };
+    } catch (error) {
+        console.error("Failed to fetch live weather:", error);
+        return null;
+    }
+};
+
 export const getTempAndHum = async () => {
     try {
         const weatherData = await fetchIPInfo();

@@ -1,27 +1,25 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavbarHome from "../../components/navbars/Navbar-home";
 import Footer from "../../components/Footer";
 import Spinner2 from "../../components/Spinner2";
 import { useAuthContext } from "../../context/AuthContext";
 import useGetMyHistory from "../../hooks/useGetMyHistory";
-import { fetchWeatherInfo } from "../../utils/getLocationAndWeatherData";
-import { getTempAndHum } from "../../utils/getTempAndHum";
-import kelvinToCelcius from "../../utils/kelvinToCelcius";
+import { fetchIPInfo } from "../../utils/getLocationAndWeatherData";
+import { getLiveCurrentWeather } from "../../utils/getTempAndHum";
 import formattedDate from "../../utils/formattedDate";
 import { RiPlantLine, RiShieldCheckLine, RiAlertLine, RiCameraLensLine } from "react-icons/ri";
-import { MdOutlineSensors, MdOutlineAssessment, MdArrowForward, MdOutlineRefresh } from "react-icons/md";
-import { WiDaySunny, WiHumidity } from "react-icons/wi";
+import { MdOutlineSensors, MdArrowForward, MdOutlineRefresh } from "react-icons/md";
+import { WiDaySunny } from "react-icons/wi";
 import "./Home.css";
 
 const Home = () => {
   const { authUser } = useAuthContext();
-  const navigate = useNavigate();
   const { history } = useGetMyHistory();
 
   const [loading, setLoading] = useState(true);
   const [recentScans, setRecentScans] = useState([]);
-  const [districtData, setDistrictData] = useState(null);
+  const [locationData, setLocationData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
   const [refreshingWeather, setRefreshingWeather] = useState(false);
 
@@ -30,21 +28,22 @@ const Home = () => {
 
     async function loadDashboardData() {
       try {
-        const [historyRecords, envInfo, tempHum] = await Promise.allSettled([
+        const [historyRecords, location] = await Promise.allSettled([
           history(),
-          fetchWeatherInfo(),
-          getTempAndHum(),
+          fetchIPInfo({ allowFallback: false }),
         ]);
 
         if (isMounted) {
           if (historyRecords.status === "fulfilled" && Array.isArray(historyRecords.value)) {
             setRecentScans(historyRecords.value.slice(-4).reverse());
           }
-          if (envInfo.status === "fulfilled" && envInfo.value) {
-            setDistrictData(envInfo.value);
-          }
-          if (tempHum.status === "fulfilled" && tempHum.value) {
-            setWeatherData(tempHum.value);
+          const currentLocation = location.status === "fulfilled" ? location.value : null;
+          const currentWeather = currentLocation
+            ? await getLiveCurrentWeather(currentLocation)
+            : null;
+          if (isMounted) {
+            setLocationData(currentLocation);
+            setWeatherData(currentWeather);
           }
         }
       } catch (err) {
@@ -59,13 +58,17 @@ const Home = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [history]);
 
   const refreshWeather = async () => {
     setRefreshingWeather(true);
     try {
-      const tempHum = await getTempAndHum();
-      if (tempHum) setWeatherData(tempHum);
+      let currentLocation = locationData;
+      if (!currentLocation) {
+        currentLocation = await fetchIPInfo({ allowFallback: false });
+        setLocationData(currentLocation);
+      }
+      setWeatherData(currentLocation ? await getLiveCurrentWeather(currentLocation) : null);
     } finally {
       setRefreshingWeather(false);
     }
@@ -82,9 +85,8 @@ const Home = () => {
     );
   }
 
-  // Derive Microclimate Risk
-  const tempC = weatherData ? Number(kelvinToCelcius(weatherData.avgTemp)) : null;
-  const humidity = weatherData ? weatherData.avgHum : null;
+  const tempC = weatherData?.temperatureC ?? null;
+  const humidity = weatherData?.humidity ?? null;
   const isFungalRiskElevated = humidity !== null && humidity >= 70 && tempC !== null && tempC >= 20 && tempC <= 29;
 
   return (
@@ -101,12 +103,14 @@ const Home = () => {
                 <span>Active Field Intelligence Overview</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#1C1E1B]">
-                Welcome back, {authUser?.name || "Farmer"}
+                Welcome back{authUser?.name ? `, ${authUser.name}` : ""}
               </h1>
               <p className="text-xs sm:text-sm text-[#545850] mt-1">
-                Field Region: <strong className="text-[#1C1E1B]">{districtData?.District || "Maharashtra Region"}</strong>
+                {locationData?.city && (
+                  <span>Field Region: <strong className="text-[#1C1E1B]">{locationData.city}</strong></span>
+                )}
                 {authUser?.crops && authUser.crops.length > 0 && (
-                  <span> • Registered Crops: <strong className="text-[#1C1E1B]">{authUser.crops.join(", ")}</strong></span>
+                  <span>{locationData?.city ? " • " : ""}Registered Crops: <strong className="text-[#1C1E1B]">{authUser.crops.join(", ")}</strong></span>
                 )}
               </p>
             </div>
@@ -158,42 +162,30 @@ const Home = () => {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 rounded-lg bg-[#F7EFE4] border border-[#A5A79B]/25">
                 <span className="text-[11px] text-[#545850] block">Temperature</span>
                 <span className="text-lg font-bold text-[#1C1E1B]">
-                  {tempC !== null ? `${tempC}°C` : "24.5°C"}
+                  {tempC !== null ? `${tempC.toFixed(1)}°C` : "Unavailable"}
                 </span>
-                <span className="text-[10px] text-[#A5A79B] block">Open-Meteo</span>
+                <span className="text-[10px] text-[#A5A79B] block">Live · Open-Meteo</span>
               </div>
 
               <div className="p-3 rounded-lg bg-[#F7EFE4] border border-[#A5A79B]/25">
                 <span className="text-[11px] text-[#545850] block">Humidity</span>
                 <span className="text-lg font-bold text-[#1C1E1B]">
-                  {humidity !== null ? `${humidity}%` : "68%"}
+                  {humidity !== null ? `${humidity}%` : "Unavailable"}
                 </span>
-                <span className="text-[10px] text-[#A5A79B] block">Relative</span>
-              </div>
-
-              <div className="p-3 rounded-lg bg-[#F7EFE4] border border-[#A5A79B]/25">
-                <span className="text-[11px] text-[#545850] block">Actual Rain</span>
-                <span className="text-lg font-bold text-[#1C1E1B]">
-                  {districtData ? `${Math.round(districtData.ACTUAL)} mm` : "218 mm"}
-                </span>
-                <span className="text-[10px] text-[#A5A79B] block">District normal: {districtData ? Math.round(districtData.NORMAL) : 250}</span>
-              </div>
-
-              <div className="p-3 rounded-lg bg-[#F7EFE4] border border-[#A5A79B]/25">
-                <span className="text-[11px] text-[#545850] block">Soil pH</span>
-                <span className="text-lg font-bold text-[#1C1E1B]">
-                  {districtData?.pH ? Number(districtData.pH).toFixed(1) : "6.5"}
-                </span>
-                <span className="text-[10px] text-emerald-700 block">Neutral range</span>
+                <span className="text-[10px] text-[#A5A79B] block">Live · Open-Meteo</span>
               </div>
             </div>
 
             <div className="text-[11px] text-[#545850] flex items-center justify-between">
-              <span>Data source: Open-Meteo & District Benchmark Dataset</span>
+              <span>
+                {weatherData?.time
+                  ? `Open-Meteo · Updated ${weatherData.time}`
+                  : "Live weather data unavailable"}
+              </span>
               <Link to="/dashboard" className="text-[#590907] font-semibold hover:underline">
                 Regional Analytics →
               </Link>
@@ -208,7 +200,19 @@ const Home = () => {
                 <h2 className="text-sm font-bold text-[#1C1E1B]">Field-Risk Assessment</h2>
               </div>
 
-              {isFungalRiskElevated ? (
+              {!weatherData ? (
+                <div className="p-3.5 rounded-lg bg-gray-50 border border-gray-200 mb-3">
+                  <div className="flex items-start gap-2">
+                    <RiAlertLine className="text-gray-500 text-lg shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-xs font-bold text-gray-800 block">Live Field-Risk Assessment Unavailable</strong>
+                      <p className="text-xs text-gray-600 leading-relaxed mt-0.5">
+                        Current temperature and humidity readings could not be retrieved. Refresh to try again.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : isFungalRiskElevated ? (
                 <div className="p-3.5 rounded-lg bg-amber-50 border border-amber-200 mb-3">
                   <div className="flex items-start gap-2">
                     <RiAlertLine className="text-amber-700 text-lg shrink-0 mt-0.5" />
