@@ -836,5 +836,8 @@
       "crop": "Wheat",
       "disease": "Healthy"
     }
-  ]
+  ],
+  "farms": [],
+  "mandiWatchlist": [],
+  "cropTasks": []
 }

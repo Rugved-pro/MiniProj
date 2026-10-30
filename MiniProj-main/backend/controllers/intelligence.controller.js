@@ -401,6 +401,48 @@ const CROP_CALENDAR_DATA = [
             { name: "Boll Development & Maturation", dayRange: "91 - 135 Days", tips: "Scout for bollworms. Light irrigations as needed." },
             { name: "Boll Bursting & Picking", dayRange: "136 - 165 Days", tips: "Pick clean cotton in morning hours after dew has dried." }
         ]
+    },
+    {
+        crop: "Tomato",
+        season: "Kharif / Rabi",
+        sowingMonths: [6, 7, 10, 11],
+        harvestMonths: [9, 10, 1, 2],
+        durationDays: 110,
+        stages: [
+            { name: "Nursery & Transplanting", dayRange: "0 - 20 Days", tips: "Harden seedlings before field transplanting. Irrigate lightly immediately after planting." },
+            { name: "Vegetative & Early Staking", dayRange: "21 - 45 Days", tips: "Stake plants to support vine growth. Remove lower suckers to improve air circulation." },
+            { name: "Flowering & Early Fruit Set", dayRange: "46 - 70 Days", tips: "Ensure steady calcium and potassium nutrition. Avoid irregular watering to prevent blossom end rot." },
+            { name: "Fruit Enlargement & Ripening", dayRange: "71 - 95 Days", tips: "Scout for fruit borer and early/late blight on leaves. Maintain uniform soil moisture." },
+            { name: "Harvesting & Grading", dayRange: "96 - 110 Days", tips: "Pick firm breaker/pink stage fruits for distant transport, red ripe for local mandis." }
+        ]
+    },
+    {
+        crop: "Onion",
+        season: "Rabi / Kharif",
+        sowingMonths: [10, 11, 5],
+        harvestMonths: [3, 4, 9],
+        durationDays: 140,
+        stages: [
+            { name: "Nursery & Seedling Growth", dayRange: "0 - 45 Days", tips: "Maintain light regular watering in raised seedbeds. Protect against damping-off." },
+            { name: "Transplanting & Establishment", dayRange: "46 - 70 Days", tips: "Transplant 6-8 week old seedlings at 15x10 cm spacing in well-pulverized beds." },
+            { name: "Vegetative Leaf Foliage", dayRange: "71 - 95 Days", tips: "Apply balanced NPK top-dressing. Scout for thrips on leaf necks." },
+            { name: "Bulb Initiation & Development", dayRange: "96 - 125 Days", tips: "Critical watering stage. Stop nitrogen application to prevent neck rotting." },
+            { name: "Neck Fall & Harvesting", dayRange: "126 - 140 Days", tips: "Stop irrigation 15 days before harvest when 50% tops fall naturally. Field cure bulbs under shade." }
+        ]
+    },
+    {
+        crop: "Soybean",
+        season: "Kharif",
+        sowingMonths: [6, 7],
+        harvestMonths: [9, 10],
+        durationDays: 100,
+        stages: [
+            { name: "Germination & Emergence", dayRange: "0 - 15 Days", tips: "Inoculate seeds with Rhizobium culture. Ensure well-drained, moist seedbed." },
+            { name: "Vegetative Branching", dayRange: "16 - 35 Days", tips: "Keep field weed-free during first 30 days. Inspect for stem fly or girdle beetle." },
+            { name: "Flowering & Pod Initiation", dayRange: "36 - 60 Days", tips: "Moisture stress at flowering causes flower drop. Avoid soil waterlogging." },
+            { name: "Pod Filling & Seed Enlargement", dayRange: "61 - 85 Days", tips: "Maintain adequate moisture for seed density. Scout for pod borers or rust." },
+            { name: "Maturity & Pod Drying", dayRange: "86 - 100 Days", tips: "Harvest when 90% leaves shed and pods turn golden yellow; harvest promptly to avoid pod shattering." }
+        ]
     }
 ];
 

@@ -1,5 +1,79 @@
 import Farm from "../models/farm.model.js";
 
+// Ceres Field Health & IoT Telemetry Controller
+// Supports Deterministic Demo Simulation, Farmer Manual Observation, and Hardware Webhook
+
+const DEMO_SCENARIOS = {
+    normal: {
+        soilMoisture: 46.0,
+        temperature: 24.2,
+        humidity: 58.0,
+        lightLux: 720,
+        batteryVoltage: 4.15,
+        batteryPercent: 93,
+        rainfall: 0,
+        scenarioKey: "normal",
+        scenarioLabel: "Normal Conditions",
+        alert: {
+            title: "Optimal Growing Conditions",
+            whatIsHappening: "Soil moisture and weather conditions are well balanced for healthy crop growth.",
+            whyItMatters: "Roots have consistent access to water and oxygen without waterlogging or dryness stress.",
+            whatFarmerShouldDo: "Continue standard monitoring. No irrigation or emergency interventions required today."
+        }
+    },
+    low_moisture: {
+        soilMoisture: 21.5,
+        temperature: 31.0,
+        humidity: 42.0,
+        lightLux: 840,
+        batteryVoltage: 4.05,
+        batteryPercent: 90,
+        rainfall: 0,
+        scenarioKey: "low_moisture",
+        scenarioLabel: "Low Soil Moisture — Irrigation Warning",
+        alert: {
+            title: "Your soil may need water",
+            whatIsHappening: "Soil moisture in the root zone has dropped to 21.5%, which is below the safe threshold.",
+            whyItMatters: "Crop roots cannot take up water quickly enough during warm daytime hours, leading to wilting and slowed nutrient uptake.",
+            whatFarmerShouldDo: "Schedule light irrigation today, preferably early morning or late afternoon when evaporation is lowest."
+        }
+    },
+    high_humidity: {
+        soilMoisture: 31.0,
+        temperature: 28.4,
+        humidity: 82.0,
+        lightLux: 650,
+        batteryVoltage: 4.08,
+        batteryPercent: 91,
+        rainfall: 2.5,
+        scenarioKey: "high_humidity",
+        scenarioLabel: "High Humidity — Possible Fungal-Risk Warning",
+        alert: {
+            title: "Current weather conditions may favour fungal disease",
+            whatIsHappening: "Air humidity has remained high at 82% with canopy temperature at 28.4°C.",
+            whyItMatters: "Prolonged leaf dampness and warm ambient air create ideal conditions for fungal spores to germinate and spread.",
+            whatFarmerShouldDo: "Inspect lower foliage for discolored lesions or powdery spots during morning walks; avoid overhead sprinkling."
+        }
+    },
+    high_temperature: {
+        soilMoisture: 25.8,
+        temperature: 38.6,
+        humidity: 33.0,
+        lightLux: 950,
+        batteryVoltage: 3.98,
+        batteryPercent: 88,
+        rainfall: 0,
+        scenarioKey: "high_temperature",
+        scenarioLabel: "High Temperature — Heat-Stress Warning",
+        alert: {
+            title: "Midday Heat Stress Warning",
+            whatIsHappening: "Field temperature has reached 38.6°C with intense solar radiation (950 lux).",
+            whyItMatters: "Excessive heat causes rapid water loss through transpiration, causing temporary wilting and reduced photosynthesis.",
+            whatFarmerShouldDo: "Avoid spraying fertilizers or agrochemicals during peak midday hours; ensure soil has sufficient moisture or mulch."
+        }
+    }
+};
+
 // In-memory latest manual readings per user
 const manualTelemetryStore = new Map();
 
@@ -10,13 +84,14 @@ let hardwareTelemetryState = {
     soilMoisture: null,
     temperature: null,
     humidity: null,
+    lightLux: null,
     rainfall: null,
     batteryVoltage: null
 };
 
 export const getFieldReadings = async (req, res) => {
     try {
-        const { mode = "simulated" } = req.query;
+        const { mode = "simulated", scenario = "high_humidity" } = req.query;
         const userId = req.user?._id;
 
         let farm = null;
@@ -33,6 +108,7 @@ export const getFieldReadings = async (req, res) => {
             if (hardwareTelemetryState.connected && hardwareTelemetryState.soilMoisture !== null) {
                 readings = {
                     mode: "HARDWARE",
+                    deviceStatus: "ESP32 — HARDWARE ONLINE",
                     isHardware: true,
                     isSimulated: false,
                     connectionStatus: "ONLINE",
@@ -40,17 +116,20 @@ export const getFieldReadings = async (req, res) => {
                     soilMoisture: hardwareTelemetryState.soilMoisture,
                     temperature: hardwareTelemetryState.temperature,
                     humidity: hardwareTelemetryState.humidity,
+                    lightLux: hardwareTelemetryState.lightLux || 650,
                     rainfall: hardwareTelemetryState.rainfall || 0,
-                    batteryVoltage: hardwareTelemetryState.batteryVoltage || 3.9
+                    batteryVoltage: hardwareTelemetryState.batteryVoltage || 3.9,
+                    batteryPercent: 85
                 };
             } else {
                 readings = {
                     mode: "HARDWARE",
+                    deviceStatus: "ESP32 — HARDWARE OFFLINE",
                     isHardware: true,
                     isSimulated: false,
                     connectionStatus: "OFFLINE",
                     lastUpdated: hardwareTelemetryState.lastSeen || null,
-                    message: "No active physical ESP32 sensor detected. Connect your field node or switch to Manual / Demo mode."
+                    message: "No active physical ESP32 sensor detected. Connect your field node or switch to Demo Simulation / Manual mode."
                 };
             }
         } else if (mode === "manual") {
@@ -58,6 +137,7 @@ export const getFieldReadings = async (req, res) => {
             if (stored) {
                 readings = {
                     mode: "MANUAL",
+                    deviceStatus: "MANUAL OBSERVATION",
                     isHardware: false,
                     isSimulated: false,
                     connectionStatus: "MANUAL_ENTRY",
@@ -65,53 +145,59 @@ export const getFieldReadings = async (req, res) => {
                     soilMoisture: stored.soilMoisture,
                     temperature: stored.temperature,
                     humidity: stored.humidity,
+                    lightLux: stored.lightLux || 600,
                     rainfall: stored.rainfall || 0,
+                    batteryVoltage: null,
+                    batteryPercent: null,
                     soilBallFeel: stored.soilBallFeel || "Moist"
                 };
             } else {
                 readings = {
                     mode: "MANUAL",
+                    deviceStatus: "NO MANUAL DATA",
                     isHardware: false,
                     isSimulated: false,
                     connectionStatus: "NO_MANUAL_DATA",
                     lastUpdated: null,
-                    message: "No manual readings entered yet. Enter today's soil moisture and weather observations."
+                    message: "No manual observations recorded yet. Enter today's field observations."
                 };
             }
         } else {
-            // Realistic simulated demonstration data based on time of day
+            // Simulated demonstration data
+            const scenarioConfig = DEMO_SCENARIOS[scenario] || DEMO_SCENARIOS.high_humidity;
             const now = new Date();
-            const hour = now.getHours();
-            // Temperature diurnal curve: cooler in early morning (21C), warmer at 2pm (31C)
-            const baseTemp = 25 + 5 * Math.sin((hour - 8) * (Math.PI / 12));
-            const baseHumidity = 65 - 15 * Math.sin((hour - 8) * (Math.PI / 12));
-            const baseMoisture = 38 + 4 * Math.cos(hour * (Math.PI / 12));
 
             readings = {
                 mode: "SIMULATION",
+                deviceStatus: "ESP32 — DEMO MODE",
                 isHardware: false,
                 isSimulated: true,
                 connectionStatus: "SIMULATED_DEMO",
                 lastUpdated: now.toISOString(),
-                soilMoisture: Math.round(baseMoisture * 10) / 10,
-                temperature: Math.round(baseTemp * 10) / 10,
-                humidity: Math.round(baseHumidity * 10) / 10,
-                rainfall: 0,
-                batteryVoltage: 4.1,
-                disclaimer: "Demonstration Data. Not a live physical sensor reading."
+                scenario: scenarioConfig.scenarioKey,
+                scenarioLabel: scenarioConfig.scenarioLabel,
+                soilMoisture: scenarioConfig.soilMoisture,
+                temperature: scenarioConfig.temperature,
+                humidity: scenarioConfig.humidity,
+                lightLux: scenarioConfig.lightLux,
+                batteryVoltage: scenarioConfig.batteryVoltage,
+                batteryPercent: scenarioConfig.batteryPercent,
+                rainfall: scenarioConfig.rainfall,
+                disclaimer: "SIMULATED DATA — Demonstration values, NOT real sensor readings."
             };
         }
 
-        // Generate explainable farmer-friendly interpretation if metrics are present
+        // Generate explainable farmer-friendly interpretation
         let advisory = null;
-        if (readings && readings.soilMoisture !== undefined) {
+        if (readings && readings.soilMoisture !== undefined && readings.connectionStatus !== "OFFLINE") {
             advisory = generateFarmerAdvisory(
                 readings.soilMoisture,
                 readings.temperature,
                 readings.humidity,
                 readings.rainfall,
                 cropName,
-                soilType
+                soilType,
+                scenario
             );
         }
 
@@ -120,7 +206,11 @@ export const getFieldReadings = async (req, res) => {
             crop: cropName,
             plot: activePlot?.name || "Main Field",
             readings,
-            advisory
+            advisory,
+            scenarios: Object.keys(DEMO_SCENARIOS).map(k => ({
+                key: k,
+                label: DEMO_SCENARIOS[k].scenarioLabel
+            }))
         });
     } catch (error) {
         console.error("Error fetching field readings:", error);
@@ -131,12 +221,13 @@ export const getFieldReadings = async (req, res) => {
 export const submitManualReading = async (req, res) => {
     try {
         const userId = req.user._id;
-        const { soilMoisture, temperature, humidity, rainfall, soilBallFeel } = req.body;
+        const { soilMoisture, temperature, humidity, rainfall, lightLux, soilBallFeel } = req.body;
 
         const record = {
             soilMoisture: Number(soilMoisture) || 40,
             temperature: Number(temperature) || 28,
             humidity: Number(humidity) || 60,
+            lightLux: Number(lightLux) || 650,
             rainfall: Number(rainfall) || 0,
             soilBallFeel: soilBallFeel || "Moist ball, does not crumble",
             timestamp: new Date().toISOString()
@@ -157,7 +248,7 @@ export const submitManualReading = async (req, res) => {
 
 export const ingestHardwareWebhook = async (req, res) => {
     try {
-        const { soilMoisture, temperature, humidity, rainfall, batteryVoltage } = req.body;
+        const { soilMoisture, temperature, humidity, rainfall, lightLux, batteryVoltage } = req.body;
 
         hardwareTelemetryState = {
             connected: true,
@@ -165,6 +256,7 @@ export const ingestHardwareWebhook = async (req, res) => {
             soilMoisture: Number(soilMoisture),
             temperature: Number(temperature),
             humidity: Number(humidity),
+            lightLux: Number(lightLux || 650),
             rainfall: Number(rainfall || 0),
             batteryVoltage: Number(batteryVoltage || 4.0)
         };
@@ -176,8 +268,8 @@ export const ingestHardwareWebhook = async (req, res) => {
     }
 };
 
-// Conversational, non-technical farmer advisory helper
-function generateFarmerAdvisory(moisture, temp, hum, rain, crop, soil) {
+// Conversational, farmer-friendly advisory generator with 3-part structured alerts
+function generateFarmerAdvisory(moisture, temp, hum, rain, crop, soil, scenarioKey) {
     // Soil moisture status
     let moistureStatus = "Good";
     let moistureExplanation = "Your soil has comfortable moisture for healthy root water uptake.";
@@ -202,7 +294,7 @@ function generateFarmerAdvisory(moisture, temp, hum, rain, crop, soil) {
     if (temp > 35) {
         tempStatus = "Heat Stress Risk";
         tempExplanation = `Air temperature is ${temp}°C. Leaves lose water faster through transpiration during midday heat.`;
-    } else if (temp < 12) {
+    } else if (temp < 15) {
         tempStatus = "Cold Slowdown";
         tempExplanation = `Cool conditions (${temp}°C) may temporarily slow vegetative growth.`;
     }
@@ -211,34 +303,52 @@ function generateFarmerAdvisory(moisture, temp, hum, rain, crop, soil) {
     let humidityStatus = "Comfortable";
     let humidityExplanation = "Air humidity is moderate.";
     let fungalRisk = "Low";
-    if (hum > 78) {
+    if (hum > 75) {
         humidityStatus = "High Moisture in Air";
         humidityExplanation = "Prolonged high humidity keeps foliage damp.";
-        fungalRisk = "Weather may favour fungal leaf spots";
+        fungalRisk = "Current weather conditions may favour fungal disease";
     }
 
-    // Conversational alerts
+    // Construct 3-part explainable alerts for farmers
     const alerts = [];
-    if (moisture < 28) {
+
+    if (scenarioKey && DEMO_SCENARIOS[scenarioKey]?.alert) {
+        const scenarioAlert = DEMO_SCENARIOS[scenarioKey].alert;
         alerts.push({
-            level: "warning",
-            title: "Your soil may need water",
-            message: `Soil moisture is at ${moisture}%. Check moisture near the roots before running pumps.`
+            level: scenarioKey === "normal" ? "success" : "warning",
+            title: scenarioAlert.title,
+            whatIsHappening: scenarioAlert.whatIsHappening,
+            whyItMatters: scenarioAlert.whyItMatters,
+            whatFarmerShouldDo: scenarioAlert.whatFarmerShouldDo
         });
-    }
-    if (hum > 78) {
-        alerts.push({
-            level: "info",
-            title: "Weather may favour fungal spots",
-            message: `Humidity has reached ${hum}%. Inspect lower crop leaves for unusual rust or dark spots during your morning field walk.`
-        });
-    }
-    if (temp > 35) {
-        alerts.push({
-            level: "warning",
-            title: "High midday heat",
-            message: "Avoid foliar spraying during peak afternoon heat to prevent leaf scorching."
-        });
+    } else {
+        if (moisture < 28) {
+            alerts.push({
+                level: "warning",
+                title: "Your soil may need water",
+                whatIsHappening: `Soil moisture in the root zone is low at ${moisture}%.`,
+                whyItMatters: "Water stress prevents root absorption and causes plant wilting under sun.",
+                whatFarmerShouldDo: "Run light irrigation early morning or late afternoon."
+            });
+        }
+        if (hum > 75) {
+            alerts.push({
+                level: "warning",
+                title: "Current weather conditions may favour fungal disease",
+                whatIsHappening: `Air humidity is high at ${hum}% with warm foliage temperature.`,
+                whyItMatters: "Moist leaves provide ideal conditions for fungal spores to germinate.",
+                whatFarmerShouldDo: "Inspect lower leaves for spots and avoid overhead watering."
+            });
+        }
+        if (temp > 35) {
+            alerts.push({
+                level: "warning",
+                title: "Midday Heat Stress Warning",
+                whatIsHappening: `Air temperature has risen to ${temp}°C.`,
+                whyItMatters: "Rapid transpiration causes dehydration and reduces yield potential.",
+                whatFarmerShouldDo: "Avoid foliar spraying during peak afternoon heat; ensure root-zone moisture."
+            });
+        }
     }
 
     return {
