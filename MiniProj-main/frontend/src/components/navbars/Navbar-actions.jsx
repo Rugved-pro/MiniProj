@@ -8,9 +8,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import HomeIcon from "@mui/icons-material/Home";
-import { RiPlantLine } from "react-icons/ri";
-import { FaCamera, FaHistory, FaUserCircle } from "react-icons/fa";
-import { MdOutlineSensors, MdOutlineAssessment, MdOutlineStorefront, MdLogout } from "react-icons/md";
+import { RiPlantLine, RiCompass3Line } from "react-icons/ri";
+import { FaHistory, FaUserCircle } from "react-icons/fa";
+import { MdOutlineSensors, MdOutlineCalendarMonth, MdOutlineTrendingUp, MdOutlineStorefront, MdOutlineSmartToy, MdLogout } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { useAuthContext } from "../../context/AuthContext";
@@ -24,12 +24,14 @@ const NavbarActions = () => {
 
     const navLinks = [
         { text: "Overview", link: "/home", icon: <HomeIcon /> },
-        { text: "Crop Health", link: "/upload", icon: <RiPlantLine className="text-lg" /> },
-        { text: "Live Capture", link: "/capture", icon: <FaCamera /> },
-        { text: "Field Intelligence", link: "/soil-intelligence", icon: <MdOutlineSensors className="text-lg" /> },
-        { text: "Marketplace", link: "/marketplace", icon: <MdOutlineStorefront className="text-lg" /> },
-        { text: "Dashboard", link: "/dashboard", icon: <MdOutlineAssessment className="text-lg" /> },
+        { text: "My Farm", link: "/my-farm", icon: <RiCompass3Line className="text-base" /> },
+        { text: "Crop Health", link: "/upload", icon: <RiPlantLine className="text-base" /> },
+        { text: "Field Intel", link: "/field-intelligence", icon: <MdOutlineSensors className="text-base" /> },
+        { text: "Crop Planning", link: "/crop-planning", icon: <MdOutlineCalendarMonth className="text-base" /> },
+        { text: "Market & Harvest", link: "/market-harvest", icon: <MdOutlineTrendingUp className="text-base" /> },
+        { text: "Marketplace", link: "/marketplace", icon: <MdOutlineStorefront className="text-base" /> },
         { text: "History", link: "/history", icon: <FaHistory /> },
+        { text: "Assistant", link: "/assistant", icon: <MdOutlineSmartToy className="text-base" /> },
     ];
 
     const isActive = (path) => {
@@ -44,14 +46,14 @@ const NavbarActions = () => {
                 <CeresLogo size={32} />
             </Link>
 
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden xl:flex items-center gap-1">
                 {navLinks.map((item) => {
                     const active = isActive(item.link);
                     return (
                         <Link
                             key={item.text}
                             to={item.link}
-                            className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-150 ${
+                            className={`px-2.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-150 ${
                                 active
                                     ? "bg-[#590907] text-[#FDFBF7] shadow-sm"
                                     : "text-[#1C1E1B] hover:text-[#590907] hover:bg-[#E8D2B5]/30"
@@ -81,7 +83,7 @@ const NavbarActions = () => {
                 </button>
             </div>
 
-            <div className="lg:hidden flex items-center">
+            <div className="xl:hidden flex items-center">
                 <button
                     onClick={() => setOpenMenu(true)}
                     className="p-1.5 text-[#1C1E1B] hover:text-[#590907] focus:outline-none"

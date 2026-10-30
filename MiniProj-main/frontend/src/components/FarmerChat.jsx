@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { IoChatbubbleEllipsesOutline, IoClose, IoSend } from "react-icons/io5";
+import { IoChatbubbleEllipsesOutline, IoClose, IoSend, IoOpenOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 import CeresLogo from "./CeresLogo";
 import "./FarmerChat.css";
 
@@ -11,6 +13,7 @@ const SUGGESTIONS = [
 ];
 
 const FarmerChat = () => {
+    const { authUser } = useAuthContext();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
@@ -40,9 +43,13 @@ const FarmerChat = () => {
         setIsSending(true);
 
         try {
+            const token = authUser?.token || localStorage.getItem("token");
             const response = await fetch(`${API_URL}/chat`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(token ? { Authorization: `Bearer ${token}` } : {})
+                },
                 body: JSON.stringify({ messages: conversation.slice(-12) })
             });
             const data = await response.json();
@@ -76,14 +83,25 @@ const FarmerChat = () => {
                                 <span>Grounded Agricultural Intelligence</span>
                             </div>
                         </div>
-                        <button
-                            type="button"
-                            className="farmer-chat__close"
-                            aria-label="Close chat"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <IoClose aria-hidden="true" />
-                        </button>
+                        <div className="flex items-center gap-1.5">
+                            <Link
+                                to="/assistant"
+                                className="text-white/80 hover:text-white p-1 rounded transition text-sm flex items-center gap-1"
+                                title="Open full-page assistant"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <IoOpenOutline className="text-base" />
+                                <span className="text-[11px] font-medium hidden sm:inline">Full Page</span>
+                            </Link>
+                            <button
+                                type="button"
+                                className="farmer-chat__close"
+                                aria-label="Close chat"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <IoClose aria-hidden="true" />
+                            </button>
+                        </div>
                     </header>
 
                     <div className="farmer-chat__messages" ref={messageListRef} aria-live="polite">
