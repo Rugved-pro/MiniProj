@@ -1,4 +1,4 @@
-# Ceres — Agricultural Field Health Intelligence & Crop Diagnostics
+# Ceres  Agricultural Field Health Intelligence & Crop Diagnostics
 
 **Ceres** (formerly KisanSahayak) is an evidence-based field health intelligence platform designed to help farmers make informed decisions. By integrating machine learning, environmental data, advanced imaging techniques, and innovative marketplace features, we aim to provide farmers with real-time insights into rainfall patterns, crop recommendations, disease management, and more.
 
@@ -139,5 +139,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Note:** This is a public repository, and we are open to contributions.
 
-#   M i n i P r o j  
- 
+# MiniProj
