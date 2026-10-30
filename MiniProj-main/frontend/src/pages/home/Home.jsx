@@ -9,7 +9,7 @@ import { fetchIPInfo } from "../../utils/getLocationAndWeatherData";
 import { getLiveCurrentWeather } from "../../utils/getTempAndHum";
 import formattedDate from "../../utils/formattedDate";
 import { RiPlantLine, RiShieldCheckLine, RiAlertLine, RiCameraLensLine } from "react-icons/ri";
-import { MdOutlineSensors, MdArrowForward, MdOutlineRefresh } from "react-icons/md";
+import { MdOutlineSensors, MdOutlineStorefront, MdArrowForward, MdOutlineRefresh } from "react-icons/md";
 import { WiDaySunny } from "react-icons/wi";
 import "./Home.css";
 
@@ -137,6 +137,13 @@ const Home = () => {
               >
                 <MdOutlineSensors className="text-sm" />
                 <span>Soil Rules</span>
+              </Link>
+              <Link
+                to="/marketplace"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#FDFBF7] text-[#1C1E1B] border border-[#A5A79B]/50 font-semibold text-xs hover:border-[#590907] hover:text-[#590907] transition"
+              >
+                <MdOutlineStorefront className="text-sm" />
+                <span>Marketplace</span>
               </Link>
             </div>
           </div>

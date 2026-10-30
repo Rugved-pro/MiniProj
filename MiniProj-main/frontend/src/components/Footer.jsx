@@ -25,6 +25,7 @@ const Footer = () => {
             <li><Link to="/upload" className="hover:text-[#590907] transition-colors">Crop Disease Assessment</Link></li>
             <li><Link to="/capture" className="hover:text-[#590907] transition-colors">Real-time Camera Capture</Link></li>
             <li><Link to="/soil-intelligence" className="hover:text-[#590907] transition-colors">Soil & Irrigation Intelligence</Link></li>
+            <li><Link to="/marketplace" className="hover:text-[#590907] transition-colors">Farmer & Agri Marketplace</Link></li>
             <li><Link to="/dashboard" className="hover:text-[#590907] transition-colors">Regional Weather & Risk Dashboard</Link></li>
             <li><Link to="/history" className="hover:text-[#590907] transition-colors">Assessment History & Records</Link></li>
           </ul>
@@ -36,7 +37,7 @@ const Footer = () => {
             <li><span>Vision Transformer (ViT)</span></li>
             <li><span>FAO-56 Soil Moisture Rules</span></li>
             <li><span>Open-Meteo Microclimate Data</span></li>
-            <li><span>Gemini 2.5 Farmer Assistant</span></li>
+            <li><span>Gemini Farmer Assistant</span></li>
           </ul>
         </div>
       </div>

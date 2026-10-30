@@ -10,7 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import HomeIcon from "@mui/icons-material/Home";
 import { RiPlantLine } from "react-icons/ri";
 import { FaCamera, FaHistory, FaUserCircle } from "react-icons/fa";
-import { MdOutlineSensors, MdOutlineAssessment, MdLogout } from "react-icons/md";
+import { MdOutlineSensors, MdOutlineAssessment, MdOutlineStorefront, MdLogout } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { useAuthContext } from "../../context/AuthContext";
@@ -27,11 +27,16 @@ const NavbarHome = () => {
     { text: "Crop Health", link: "/upload", icon: <RiPlantLine className="text-lg" /> },
     { text: "Live Capture", link: "/capture", icon: <FaCamera /> },
     { text: "Field Intelligence", link: "/soil-intelligence", icon: <MdOutlineSensors className="text-lg" /> },
+    { text: "Marketplace", link: "/marketplace", icon: <MdOutlineStorefront className="text-lg" /> },
     { text: "Dashboard", link: "/dashboard", icon: <MdOutlineAssessment className="text-lg" /> },
     { text: "History", link: "/history", icon: <FaHistory /> },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    if (path === "/marketplace") return location.pathname.startsWith("/marketplace");
+    if (path === "/dashboard") return location.pathname.startsWith("/dashboard");
+    return location.pathname === path;
+  };
 
   return (
     <nav className="w-full flex items-center justify-between px-6 py-3.5 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#A5A79B]/30 sticky top-0 z-40">
