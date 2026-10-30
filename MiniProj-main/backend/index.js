@@ -29,6 +29,10 @@ import marketplaceRoutes from "./routes/marketplace.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
+import farmRoutes from "./routes/farm.routes.js";
+import intelligenceRoutes from "./routes/intelligence.routes.js";
+import mandiRoutes from "./routes/mandi.routes.js";
+import iotRoutes from "./routes/iot.routes.js";
 
 const UPLOADS_DIR = path.join(__dirname, "uploads");
 if (!fs.existsSync(UPLOADS_DIR)) {
@@ -107,6 +111,10 @@ app.use("/api/v1/marketplace", marketplaceRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/chat", chatRoutes);
+app.use("/api/v1/farm", farmRoutes);
+app.use("/api/v1/intelligence", intelligenceRoutes);
+app.use("/api/v1/mandi", mandiRoutes);
+app.use("/api/v1/iot", iotRoutes);
 
 async function ensureMLServerRunning() {
     const mlUrl = process.env.ML_URL || "http://127.0.0.1:8000";

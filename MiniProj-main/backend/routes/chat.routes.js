@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import { verifyJwt } from "../utils/jwt.js";
+import Farm from "../models/farm.model.js";
+import Prediction from "../models/prediction.model.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -83,9 +86,33 @@ router.post("/", async (req, res) => {
         ...FALLBACK_MODELS.filter((m) => m !== configuredModel)
     ];
 
+    let contextualInstruction = SYSTEM_INSTRUCTION;
+    const token = req.headers.authorization?.split(" ")[1] || req.cookies?.jwt;
+    if (token) {
+        try {
+            const decoded = await verifyJwt(token, process.env.JWT_SECRET || "kisansahayak_local_jwt_secret_2026");
+            if (decoded?.userId) {
+                const farm = await Farm.findOne({ userId: decoded.userId });
+                const recentScan = await Prediction.findOne({ userId: decoded.userId });
+                if (farm) {
+                    const activePlot = farm.plots?.find(p => p._id === farm.activePlotId) || farm.plots?.[0];
+                    contextualInstruction += `\n\nCURRENT AUTHENTICATED FARMER CONTEXT:\n- Farmer Name: ${farm.farmerName}\n- Location: ${farm.district}, ${farm.state}\n- Active Field: ${activePlot?.name || "Main Field"} (${activePlot?.area || ""} ${activePlot?.areaUnit || ""})\n- Current Crop: ${activePlot?.crop || "Not specified"}\n- Growth Stage: ${activePlot?.growthStage || "Vegetative"}\n- Soil Type: ${activePlot?.soilType || "Loamy"}\n- Irrigation: ${activePlot?.irrigationMethod || "Drip"}\n- Preferred Language: ${farm.preferredLanguage || "en"}`;
+                }
+                if (recentScan) {
+                    contextualInstruction += `\n- Recent Plant Health Observation: ${recentScan.crop} diagnosed as ${recentScan.disease} in ${recentScan.location}`;
+                }
+            }
+        } catch (ctxErr) {
+            console.warn("Could not extract farm context for assistant:", ctxErr.message);
+        }
+    }
+    if (req.body?.clientContext && typeof req.body.clientContext === "string") {
+        contextualInstruction += `\n- Current Session Context: ${req.body.clientContext.slice(0, 500)}`;
+    }
+
     const requestBody = JSON.stringify({
         systemInstruction: {
-            parts: [{ text: SYSTEM_INSTRUCTION }]
+            parts: [{ text: contextualInstruction }]
         },
         contents: trimmedMessages.map(({ role, content }) => ({
             role: role === "assistant" ? "model" : "user",

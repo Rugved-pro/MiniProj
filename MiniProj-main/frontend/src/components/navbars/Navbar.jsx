@@ -33,7 +33,7 @@ const Navbar = () => {
     {
       text: "Field Intelligence",
       icon: <MdOutlineSensors className="text-[#590907] text-xl" />,
-      link: "/soil-intelligence"
+      link: "/field-intelligence"
     },
     {
       text: "About Platform",
@@ -62,7 +62,7 @@ const Navbar = () => {
           Crop Health
         </Link>
         <Link
-          to="/soil-intelligence"
+          to="/field-intelligence"
           className="text-[#1C1E1B] font-medium text-sm transition-colors duration-200 hover:text-[#590907]"
         >
           Field Intelligence

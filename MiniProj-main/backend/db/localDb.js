@@ -10,6 +10,9 @@ const DB_FILE = path.join(__dirname, "database.json");
 const DEFAULT_SEED_DATA = {
     users: [],
     deletedUsers: [],
+    farms: [],
+    mandiWatchlist: [],
+    cropTasks: [],
     predictions: [],
     products: [
         {

@@ -21,6 +21,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from 'redux-persist/integration/react';
 import { AuthContextProvider } from './context/AuthContext.jsx'
+import { FarmContextProvider } from './context/FarmContext.jsx'
 import { EnrollmentContextProvider } from './context/EnrollmentContext.jsx';
 import { ElevatedUserContextProvider } from './context/ElevatedUserContext.jsx'
 
@@ -58,11 +59,13 @@ createRoot(document.getElementById('root')).render(
       <PersistGate loading={null} persistor={persistStore(store)}>
         <BrowserRouter>
           <AuthContextProvider>
+            <FarmContextProvider>
             <EnrollmentContextProvider>
               <ElevatedUserContextProvider>
                 <App />
               </ElevatedUserContextProvider>
             </EnrollmentContextProvider>
+            </FarmContextProvider>
           </AuthContextProvider>
         </BrowserRouter>
       </PersistGate>
