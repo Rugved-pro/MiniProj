@@ -8,7 +8,12 @@ const User = createLocalModel(
         dob: "",
         phoneno: "",
         password: "",
-        crops: []
+        crops: [],
+        district: "PUNE",
+        telegramChatId: "",
+        telegramUsername: "",
+        telegramLinkedAt: "",
+        telegramLinkCode: ""
     },
     true
 );

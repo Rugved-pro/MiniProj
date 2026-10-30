@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import NavbarHome from "../../components/navbars/Navbar-home";
 import Footer from "../../components/Footer";
 import Spinner2 from "../../components/Spinner2";
+import TelegramBotPanel from "../../components/TelegramBotPanel";
 import { useAuthContext } from "../../context/AuthContext";
 import { useFarmContext } from "../../context/FarmContext";
 import useGetMyHistory from "../../hooks/useGetMyHistory";
@@ -538,7 +539,13 @@ const Home = () => {
         </div>
 
         {/* Ceres Agronomist Assistant Banner */}
-        <div className="p-6 rounded-2xl bg-gradient-to-r from-[#FDFBF7] via-[#FDFBF7] to-[#F7EFE4] border border-[#A5A79B]/40 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Telegram Phone Bot Integration Section */}
+        <div className="mb-8">
+          <TelegramBotPanel />
+        </div>
+
+        {/* Agricultural AI Assistant Prompt Banner */}
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-[#FDFBF7] to-[#F7EFE4] border border-[#A5A79B]/40 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-[#590907] text-[#FDFBF7] flex items-center justify-center text-2xl shrink-0 shadow-sm">
               <RiSparklingLine />

@@ -233,6 +233,7 @@ Create `backend/.env` for server-side configuration. The following variables are
 | `ML_URL` | Python ML-service base URL; defaults to `http://127.0.0.1:8000`. |
 | `GEMINI_API_KEY` | Enables the Gemini farmer-assistant integration. Keep this on the server. |
 | `GEMINI_MODEL` | Optional Gemini model name; the chat route has its own default. |
+| `TELEGRAM_BOT_TOKEN` | Telegram BotFather API token (e.g., `@Kisan_Ceres_Bot`) enabling direct phone access to field telemetry, crop scans, FAO-56 rules, and AI chat. |
 | `STRIPE_SECRET_KEY` | Enables Stripe checkout. Without it, local checkout mode is used. |
 | `BASE_URL` | Frontend origin used to construct payment return URLs; defaults to `http://localhost:5173`. |
 | `ADMIN_PASSWORD` | Password expected by the admin-token endpoint. |
@@ -270,6 +271,7 @@ The Express API is mounted at `/api/v1`. Protected routes require the authentica
 | `/elevatedUser` | Metadata, image, and record operations | Contributor/elevated-user workflows |
 | `/admin` | Admin token and image operations | Administrative operations |
 | `/chat` | `POST /` | Gemini-backed assistant (requires `GEMINI_API_KEY`) |
+| `/telegram` | `GET /status`, `POST /configure`, `POST /send-report`, `POST /district`, `POST /unlink` | Telegram BotFather phone integration & field reports |
 
 The image upload endpoint is `POST /api/v1/upload-image`; uploaded files are served from `/uploads/<filename>`. The ML service is separate from `/api/v1` and currently exposes `GET /`, `POST /predict`, and `POST /analysis` on port 8000.
 

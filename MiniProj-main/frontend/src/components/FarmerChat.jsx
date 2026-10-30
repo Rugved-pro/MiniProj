@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { IoChatbubbleEllipsesOutline, IoClose, IoSend, IoOpenOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { FaTelegramPlane } from "react-icons/fa";
 import { useAuthContext } from "../context/AuthContext";
 import CeresLogo from "./CeresLogo";
 import "./FarmerChat.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1";
 const SUGGESTIONS = [
+    "What is my current field weather, soil pH, and fungal risk?",
     "What are early symptoms of crop rust or leaf blight?",
     "How does soil moisture affect crop yield under FAO-56?",
     "फसल में फफूंद (fungal disease) के लक्षण और जैविक उपाय क्या हैं?"
@@ -19,12 +21,26 @@ const FarmerChat = () => {
     const [input, setInput] = useState("");
     const [isSending, setIsSending] = useState(false);
     const [error, setError] = useState("");
+    const [telegramLink, setTelegramLink] = useState("https://t.me/Kisan_Ceres_Bot");
+    const [botUsername, setBotUsername] = useState("Kisan_Ceres_Bot");
     const messageListRef = useRef(null);
     const inputRef = useRef(null);
 
     useEffect(() => {
         if (isOpen) inputRef.current?.focus();
     }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const userId = authUser?._id || "";
+        fetch(`${API_URL}/telegram/status?userId=${encodeURIComponent(userId)}`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((data) => {
+                if (data?.deepLink) setTelegramLink(data.deepLink);
+                if (data?.botInfo?.username) setBotUsername(data.botInfo.username);
+            })
+            .catch(() => {});
+    }, [isOpen, authUser?._id]);
 
     useEffect(() => {
         if (messageListRef.current) {
@@ -104,12 +120,30 @@ const FarmerChat = () => {
                         </div>
                     </header>
 
+                    {/* Telegram Phone Bot Banner inside Chat */}
+                    <div className="farmer-chat__telegram-bar">
+                        <div className="farmer-chat__telegram-info">
+                            <FaTelegramPlane className="farmer-chat__telegram-icon" />
+                            <span>
+                                Phone Bot: <strong>@{botUsername}</strong>
+                            </span>
+                        </div>
+                        <a
+                            href={telegramLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="farmer-chat__telegram-btn"
+                        >
+                            Open on Phone →
+                        </a>
+                    </div>
+
                     <div className="farmer-chat__messages" ref={messageListRef} aria-live="polite">
                         {messages.length === 0 ? (
                             <div className="farmer-chat__welcome">
                                 <p>
-                                    Namaste! I am <strong>Ceres</strong>, your agricultural intelligence assistant.
-                                    Ask me about crop diseases, irrigation depletion thresholds, or soil health.
+                                    Namaste{authUser?.name ? ` ${authUser.name}` : ""}! I am <strong>Ceres</strong>, your agricultural intelligence assistant.
+                                    Ask me about your field telemetry, crop diseases, FAO-56 irrigation rules, or connect on Telegram (<strong>@{botUsername}</strong>).
                                 </p>
                                 <div className="farmer-chat__suggestions">
                                     {SUGGESTIONS.map((suggestion) => (

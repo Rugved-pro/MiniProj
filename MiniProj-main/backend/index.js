@@ -33,6 +33,8 @@ import farmRoutes from "./routes/farm.routes.js";
 import intelligenceRoutes from "./routes/intelligence.routes.js";
 import mandiRoutes from "./routes/mandi.routes.js";
 import iotRoutes from "./routes/iot.routes.js";
+import telegramRoutes from "./routes/telegram.routes.js";
+import { startTelegramBot } from "./services/telegramBot.service.js";
 
 const UPLOADS_DIR = path.join(__dirname, "uploads");
 if (!fs.existsSync(UPLOADS_DIR)) {
@@ -115,6 +117,7 @@ app.use("/api/v1/farm", farmRoutes);
 app.use("/api/v1/intelligence", intelligenceRoutes);
 app.use("/api/v1/mandi", mandiRoutes);
 app.use("/api/v1/iot", iotRoutes);
+app.use("/api/v1/telegram", telegramRoutes);
 
 async function ensureMLServerRunning() {
     const mlUrl = process.env.ML_URL || "http://127.0.0.1:8000";
@@ -156,6 +159,7 @@ async function startServer() {
         }
 
         ensureMLServerRunning();
+        startTelegramBot();
     });
 }
 
