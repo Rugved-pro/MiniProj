@@ -1,62 +1,85 @@
+import PropTypes from "prop-types";
 import formattedDate from "../utils/formattedDate";
+import { RiPlantLine, RiShieldCheckLine, RiAlertLine } from "react-icons/ri";
 
 const HistoryCard = ({ history }) => {
-    const date = formattedDate(history.createdAt);
-  
-    return (
-      <div className="bg-gradient-to-br from-gray-300 to-gray-200 shadow-lg rounded-lg p-4 w-90 mx-auto my-4 backdrop-blur-lg">
-        <img
-          src={history.url}
-          alt={history.disease ? `${history.crop} affected by ${history.disease}` : `${history.crop} (Healthy)`}
-          className="w-full h-48 object-cover rounded-t-lg"
-        />
+  const date = formattedDate(history.createdAt);
+  const isHealthy = !history.disease || history.disease.toLowerCase() === "healthy";
+
+  return (
+    <div className="bg-[#FDFBF7] border border-[#A5A79B]/35 shadow-sm rounded-xl overflow-hidden hover:border-[#590907]/40 transition duration-150 flex flex-col justify-between">
+      <div>
+        <div className="relative h-44 w-full bg-[#E8D2B5]/30 overflow-hidden">
+          {history.url ? (
+            <img
+              src={history.url}
+              alt={history.crop || "Crop Leaf"}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-[#A5A79B]">
+              <RiPlantLine className="text-3xl" />
+            </div>
+          )}
+          <span
+            className={`absolute top-2.5 right-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm ${
+              isHealthy
+                ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                : "bg-rose-100 text-[#590907] border border-rose-300"
+            }`}
+          >
+            {isHealthy ? "Optimal Health" : "Affected"}
+          </span>
+        </div>
+
         <div className="p-4">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">
-            Disease: {history.disease || "Healthy"}
-          </h2>
-          <p className="text-gray-700 text-sm mb-1">
-            <strong>Crop:</strong> {history.crop}
-          </p>
-          <p className="text-gray-700 text-sm mb-1">
-            <strong>Location:</strong> {history.location}
-          </p>
-          <p className="text-gray-700 text-sm mb-3">
-            <strong>Date:</strong> {date}
-          </p>
-  
-          <div className="mb-3">
-            <h3 className="font-semibold text-gray-800">Recommendations:</h3>
-            {history.recomm && history.recomm.length > 0 ? (
-              <ul className="list-disc list-inside text-gray-700">
-                {history.recomm.map((rec, index) => (
-                  <li key={index}>{rec}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>
-                🌞 Your crop is thriving! No recommendations needed. 🌱
-              </p>
-            )}
+          <div className="flex items-center gap-1.5 text-xs text-[#545850] mb-1">
+            <span className="font-semibold text-[#1C1E1B]">{history.crop || "Unknown Crop"}</span>
+            <span>•</span>
+            <span>{history.location || "Field Plot"}</span>
           </div>
-  
-          <div>
-            <h3 className="font-semibold text-gray-800">Pesticides:</h3>
-            {history.pesticides && history.pesticides.length > 0 ? (
-              <ul className="list-disc list-inside text-gray-700">
-                {history.pesticides.map((pesticide, index) => (
-                  <li key={index}>{pesticide}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>
-                🥳 No pesticides required. Your crop is healthy! 🍎
+
+          <h3 className="text-base font-bold font-serif text-[#1C1E1B] mb-2">
+            {isHealthy ? "Healthy Leaf Canopy" : history.disease}
+          </h3>
+
+          <span className="text-[11px] font-mono text-[#A5A79B] block mb-3">
+            Assessed on {date}
+          </span>
+
+          <div className="p-2.5 rounded-lg bg-[#F7EFE4] border border-[#A5A79B]/25 text-xs text-[#545850] mb-3">
+            <strong className="text-[#1C1E1B] block mb-0.5">Management Protocol:</strong>
+            {history.recomm && history.recomm.length > 0 ? (
+              <p className="line-clamp-2">{history.recomm[0]}</p>
+            ) : isHealthy ? (
+              <p className="text-emerald-900 flex items-center gap-1">
+                <RiShieldCheckLine className="text-sm shrink-0" />
+                <span>Crop is thriving. Maintain normal watering schedule.</span>
               </p>
+            ) : (
+              <p>Follow standard biological or chemical mitigation steps.</p>
             )}
           </div>
         </div>
       </div>
-    );
-  };
-  
-  export default HistoryCard;
-  
+
+      <div className="p-3 bg-[#F7EFE4] border-t border-[#A5A79B]/20 flex items-center justify-between text-xs">
+        <span className="text-[#545850]">Verified Record</span>
+        <span className="font-semibold text-[#590907]">ViT Evaluated</span>
+      </div>
+    </div>
+  );
+};
+
+HistoryCard.propTypes = {
+  history: PropTypes.shape({
+    createdAt: PropTypes.string,
+    url: PropTypes.string,
+    crop: PropTypes.string,
+    location: PropTypes.string,
+    disease: PropTypes.string,
+    recomm: PropTypes.array,
+  }),
+};
+
+export default HistoryCard;

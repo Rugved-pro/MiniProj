@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { IoChatbubbleEllipsesOutline, IoClose, IoSend } from "react-icons/io5";
+import CeresLogo from "./CeresLogo";
 import "./FarmerChat.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1";
 const SUGGESTIONS = [
-    "How can I improve my soil health?",
-    "What are early signs of crop disease?",
-    "How can I save water when irrigating?"
+    "What are early symptoms of crop rust or leaf blight?",
+    "How does soil moisture affect crop yield under FAO-56?",
+    "फसल में फफूंद (fungal disease) के लक्षण और जैविक उपाय क्या हैं?"
 ];
 
 const FarmerChat = () => {
@@ -66,11 +67,14 @@ const FarmerChat = () => {
     return (
         <div className="farmer-chat">
             {isOpen && (
-                <section className="farmer-chat__panel" aria-label="Farmer assistant">
+                <section className="farmer-chat__panel" aria-label="Ceres agricultural assistant">
                     <header className="farmer-chat__header">
-                        <div>
-                            <strong>Farmer Assistant</strong>
-                            <span>Ask about crops, soil, and farming</span>
+                        <div className="flex items-center gap-2">
+                            <CeresLogo size={24} showWordmark={false} invert={true} />
+                            <div>
+                                <strong>Ceres Assistant</strong>
+                                <span>Grounded Agricultural Intelligence</span>
+                            </div>
                         </div>
                         <button
                             type="button"
@@ -85,7 +89,10 @@ const FarmerChat = () => {
                     <div className="farmer-chat__messages" ref={messageListRef} aria-live="polite">
                         {messages.length === 0 ? (
                             <div className="farmer-chat__welcome">
-                                <p>Namaste! I can help with general farming questions. What would you like to know?</p>
+                                <p>
+                                    Namaste! I am <strong>Ceres</strong>, your agricultural intelligence assistant.
+                                    Ask me about crop diseases, irrigation depletion thresholds, or soil health.
+                                </p>
                                 <div className="farmer-chat__suggestions">
                                     {SUGGESTIONS.map((suggestion) => (
                                         <button
@@ -109,14 +116,14 @@ const FarmerChat = () => {
                                 </p>
                             ))
                         )}
-                        {isSending && <p className="farmer-chat__typing" role="status">Thinking…</p>}
+                        {isSending && <p className="farmer-chat__typing" role="status">Ceres is analyzing…</p>}
                     </div>
 
                     {error && <p className="farmer-chat__error" role="alert">{error}</p>}
 
                     <form className="farmer-chat__form" onSubmit={handleSubmit}>
                         <label className="farmer-chat__visually-hidden" htmlFor="farmer-chat-input">
-                            Ask a farming question
+                            Ask an agricultural question
                         </label>
                         <textarea
                             id="farmer-chat-input"
@@ -124,7 +131,7 @@ const FarmerChat = () => {
                             value={input}
                             maxLength={4000}
                             rows={1}
-                            placeholder="Type your question…"
+                            placeholder="Ask about crops, disease symptoms, or soil…"
                             onChange={(event) => setInput(event.target.value)}
                             onKeyDown={(event) => {
                                 if (event.key === "Enter" && !event.shiftKey) {
@@ -142,7 +149,7 @@ const FarmerChat = () => {
                         </button>
                     </form>
                     <p className="farmer-chat__disclaimer">
-                        AI answers can be imperfect. Follow local agricultural guidance.
+                        Evidence-based guidance. Verify chemical treatments with local Krishi Vigyan Kendra (KVK).
                     </p>
                 </section>
             )}
@@ -150,12 +157,12 @@ const FarmerChat = () => {
             <button
                 type="button"
                 className="farmer-chat__toggle"
-                aria-label={isOpen ? "Close farmer assistant" : "Open farmer assistant"}
+                aria-label={isOpen ? "Close Ceres assistant" : "Open Ceres assistant"}
                 aria-expanded={isOpen}
                 onClick={() => setIsOpen((open) => !open)}
             >
                 {isOpen ? <IoClose aria-hidden="true" /> : <IoChatbubbleEllipsesOutline aria-hidden="true" />}
-                <span>{isOpen ? "Close" : "Ask a farmer question"}</span>
+                <span>{isOpen ? "Close" : "Ceres Assistant"}</span>
             </button>
         </div>
     );

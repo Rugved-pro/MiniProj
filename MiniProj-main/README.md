@@ -1,6 +1,6 @@
-# KisanSahayak - Empowering Farmers with Smart Agriculture Solutions
+# Ceres — Agricultural Field Health Intelligence & Crop Diagnostics
 
-**KisanSahayak** is a smart, data-driven web application designed to help farmers make informed decisions. By integrating machine learning, environmental data, advanced imaging techniques, and innovative marketplace features, we aim to provide farmers with real-time insights into rainfall patterns, crop recommendations, disease management, and more.
+**Ceres** (formerly KisanSahayak) is an evidence-based field health intelligence platform designed to help farmers make informed decisions. By integrating machine learning, environmental data, advanced imaging techniques, and innovative marketplace features, we aim to provide farmers with real-time insights into rainfall patterns, crop recommendations, disease management, and more.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
