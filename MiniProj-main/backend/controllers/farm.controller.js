@@ -1,53 +1,23 @@
 import Farm from "../models/farm.model.js";
 import crypto from "crypto";
 
-const DEFAULT_PLOTS = (crop = "Wheat") => [
-    {
-        _id: crypto.randomBytes(8).toString("hex"),
-        name: "Main Field - Plot A",
-        area: 2.5,
-        areaUnit: "Acres",
-        crop: crop || "Wheat",
-        variety: "High-Yield Sharbati",
-        sowingDate: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
-        growthStage: "Vegetative / Tillering",
-        soilType: "Loamy",
-        irrigationMethod: "Drip Irrigation",
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-    }
-];
-
 export const getFarmProfile = async (req, res) => {
     try {
         const userId = req.user._id;
         let farm = await Farm.findOne({ userId });
 
         if (!farm) {
-            const initialPlots = DEFAULT_PLOTS(req.user.crops?.[0]);
-            farm = await Farm.create({
-                userId,
-                farmerName: req.user.name || "Kisan Mitra",
-                phone: req.user.phoneno || "",
-                state: "Maharashtra",
-                district: "Pune",
-                preferredLanguage: "en",
-                activePlotId: initialPlots[0]._id,
-                plots: initialPlots
+            // New user without configured farm: return null profile and activePlot so UI can show setup
+            return res.status(200).json({
+                success: true,
+                profile: null,
+                activePlot: null
             });
         }
 
-        // If plots array is empty, ensure at least one plot exists
-        if (!farm.plots || farm.plots.length === 0) {
-            const initialPlots = DEFAULT_PLOTS(req.user.crops?.[0]);
-            farm = await Farm.findByIdAndUpdate(
-                farm._id,
-                { plots: initialPlots, activePlotId: initialPlots[0]._id },
-                { new: true }
-            );
-        }
-
-        const activePlot = farm.plots.find(p => p._id === farm.activePlotId) || farm.plots[0];
+        const activePlot = (farm.plots && farm.plots.length > 0)
+            ? (farm.plots.find(p => p._id === farm.activePlotId) || farm.plots[0])
+            : null;
 
         return res.status(200).json({
             success: true,
@@ -67,18 +37,17 @@ export const updateFarmProfile = async (req, res) => {
 
         let farm = await Farm.findOne({ userId });
         if (!farm) {
-            const initialPlots = DEFAULT_PLOTS(req.user.crops?.[0]);
             farm = await Farm.create({
                 userId,
-                farmerName: farmerName || req.user.name,
+                farmerName: (farmerName || req.user.name || "Farmer").trim(),
                 phone: req.user.phoneno || "",
-                state: state || "Maharashtra",
-                district: district || "Pune",
+                state: state ? String(state).trim() : "",
+                district: district ? String(district).trim() : "",
                 preferredLanguage: preferredLanguage || "en",
-                activePlotId: activePlotId || initialPlots[0]._id,
-                plots: initialPlots
+                activePlotId: null,
+                plots: []
             });
-            return res.status(200).json({ success: true, profile: farm });
+            return res.status(200).json({ success: true, profile: farm, activePlot: null });
         }
 
         const updates = {};
@@ -86,10 +55,12 @@ export const updateFarmProfile = async (req, res) => {
         if (state !== undefined) updates.state = String(state).trim();
         if (district !== undefined) updates.district = String(district).trim();
         if (preferredLanguage !== undefined) updates.preferredLanguage = String(preferredLanguage).trim();
-        if (activePlotId !== undefined) updates.activePlotId = String(activePlotId).trim();
+        if (activePlotId !== undefined) updates.activePlotId = activePlotId ? String(activePlotId).trim() : null;
 
         const updated = await Farm.findByIdAndUpdate(farm._id, updates, { new: true });
-        const activePlot = updated.plots.find(p => p._id === updated.activePlotId) || updated.plots[0];
+        const activePlot = (updated.plots && updated.plots.length > 0)
+            ? (updated.plots.find(p => p._id === updated.activePlotId) || updated.plots[0])
+            : null;
 
         return res.status(200).json({
             success: true,
@@ -115,11 +86,12 @@ export const addPlot = async (req, res) => {
         if (!farm) {
             farm = await Farm.create({
                 userId,
-                farmerName: req.user.name,
+                farmerName: req.user.name || "Farmer",
                 phone: req.user.phoneno || "",
-                state: "Maharashtra",
-                district: "Pune",
+                state: "",
+                district: "",
                 preferredLanguage: "en",
+                activePlotId: null,
                 plots: []
             });
         }
@@ -130,9 +102,9 @@ export const addPlot = async (req, res) => {
             area: Math.max(0.1, Number(area) || 1.0),
             areaUnit: areaUnit === "Hectares" ? "Hectares" : "Acres",
             crop: String(crop).trim(),
-            variety: variety ? String(variety).trim() : "Standard Variety",
+            variety: variety ? String(variety).trim() : "Standard",
             sowingDate: sowingDate || new Date().toISOString().split("T")[0],
-            growthStage: growthStage || "Vegetative",
+            growthStage: growthStage || "Vegetative / Tillering",
             soilType: soilType || "Loamy",
             irrigationMethod: irrigationMethod || "Drip Irrigation",
             createdAt: new Date().toISOString(),
@@ -140,9 +112,11 @@ export const addPlot = async (req, res) => {
         };
 
         const updatedPlots = [...(farm.plots || []), newPlot];
+        const newActivePlotId = farm.activePlotId || newPlot._id;
+
         const updated = await Farm.findByIdAndUpdate(
             farm._id,
-            { plots: updatedPlots, activePlotId: farm.activePlotId || newPlot._id },
+            { plots: updatedPlots, activePlotId: newActivePlotId },
             { new: true }
         );
 
@@ -208,12 +182,10 @@ export const deletePlot = async (req, res) => {
         const farm = await Farm.findOne({ userId });
         if (!farm) return res.status(404).json({ error: "Farm profile not found" });
 
-        if (farm.plots.length <= 1) {
-            return res.status(400).json({ error: "You must keep at least one field plot configured" });
-        }
-
-        const remainingPlots = farm.plots.filter(p => p._id !== plotId);
-        const newActiveId = farm.activePlotId === plotId ? remainingPlots[0]._id : farm.activePlotId;
+        const remainingPlots = (farm.plots || []).filter(p => p._id !== plotId);
+        const newActiveId = remainingPlots.length > 0
+            ? (farm.activePlotId === plotId ? remainingPlots[0]._id : farm.activePlotId)
+            : null;
 
         const updated = await Farm.findByIdAndUpdate(
             farm._id,

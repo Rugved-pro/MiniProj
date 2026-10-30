@@ -43,15 +43,43 @@ def _open_image(source):
 
 def predict_class(image_source):
     image = _open_image(image_source)
+    sharpness = compute_sharpness(image)
+    quality_warning = None
+    if sharpness < 25.0:
+        quality_warning = "Image focus appears soft or low contrast; verify symptoms with physical inspection."
+
     inputs = feature_extractor(images=image, return_tensors="pt")
     inputs = {name: tensor.to(device) for name, tensor in inputs.items()}
 
     with torch.inference_mode():
         outputs = model(**inputs)
 
-    predicted_class_idx = outputs.logits.argmax(-1).item()
-    label = model.config.id2label[predicted_class_idx]
-    return get_crop_disease(label)
+    probabilities = torch.softmax(outputs.logits, dim=-1)[0]
+    top_k = min(3, len(probabilities))
+    top_probs, top_indices = torch.topk(probabilities, k=top_k)
+
+    top3 = []
+    for prob, idx in zip(top_probs, top_indices):
+        label = model.config.id2label[idx.item()]
+        try:
+            c, d = get_crop_disease(label)
+            top3.append({
+                "crop": c,
+                "disease": d,
+                "confidence": round(float(prob.item()) * 100, 1)
+            })
+        except Exception:
+            top3.append({
+                "crop": "Unknown",
+                "disease": label,
+                "confidence": round(float(prob.item()) * 100, 1)
+            })
+
+    top1 = top3[0] if top3 else {"crop": "Unknown", "disease": "Unknown", "confidence": 0.0}
+    confidence = top1["confidence"]
+    is_uncertain = confidence < 40.0
+
+    return top1["crop"], top1["disease"], confidence, top3, is_uncertain, round(sharpness, 1), quality_warning
 
 
 def get_crop_disease(label):

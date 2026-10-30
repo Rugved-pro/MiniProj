@@ -54,7 +54,7 @@ export const getFieldReadings = async (req, res) => {
                 };
             }
         } else if (mode === "manual") {
-            const stored = userId ? manualTelemetryStore.get(userId) : null;
+            const stored = userId ? manualTelemetryStore.get(String(userId)) : null;
             if (stored) {
                 readings = {
                     mode: "MANUAL",
@@ -142,7 +142,7 @@ export const submitManualReading = async (req, res) => {
             timestamp: new Date().toISOString()
         };
 
-        manualTelemetryStore.set(userId, record);
+        manualTelemetryStore.set(String(userId), record);
 
         return res.status(200).json({
             success: true,

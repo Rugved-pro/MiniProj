@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { verifyJwt } from "../utils/jwt.js";
 import Farm from "../models/farm.model.js";
-import Prediction from "../models/prediction.model.js";
+import Prediction from "../models/predictions.model.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

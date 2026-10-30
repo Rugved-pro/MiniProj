@@ -55,7 +55,7 @@ async def root():
 async def getPrediction(req: Image):
     try:
         best_img_url = pd.get_best_img(req.url)
-        crop, attribute = pd.predict_class(best_img_url)
+        crop, attribute, confidence, top3, is_uncertain, sharpness, quality_warning = pd.predict_class(best_img_url)
     except (FileNotFoundError, OSError, UnidentifiedImageError, urllib.error.URLError, ValueError) as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
 
@@ -78,6 +78,11 @@ async def getPrediction(req: Image):
         "temp": req.temp,
         "hum": req.hum,
         "disease": attribute,
+        "confidence": confidence,
+        "top3": top3,
+        "is_uncertain": is_uncertain,
+        "sharpness": sharpness,
+        "quality_warning": quality_warning,
         "disease_details": recommendations.get("disease_details", []) if attribute != "Healthy" else [],
         "recomm": recommendations.get("recommendations", []) if attribute != "Healthy" else [],
         "pesticides": recommendations.get("pesticides", []) if attribute != "Healthy" else []

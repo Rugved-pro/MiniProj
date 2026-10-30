@@ -17,6 +17,11 @@ const Prediction = createLocalModel(
         temp: 0,
         hum: 0,
         disease: "",
+        confidence: 0,
+        top3: [],
+        is_uncertain: false,
+        sharpness: 0,
+        quality_warning: "",
         disease_details: [],
         recomm: [],
         pesticides: []

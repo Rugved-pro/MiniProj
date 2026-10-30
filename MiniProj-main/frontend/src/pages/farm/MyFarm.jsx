@@ -235,6 +235,7 @@ export default function MyFarm() {
                         </h2>
                     </div>
 
+                    {plots.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {plots.map((plot) => {
                             const isSelected = activePlot?._id === plot._id;
@@ -320,6 +321,25 @@ export default function MyFarm() {
                             );
                         })}
                     </div>
+                    ) : (
+                        <div className="p-8 sm:p-12 text-center rounded-2xl border-2 border-dashed border-[#A5A79B]/40 bg-[#FDFBF7] shadow-sm">
+                            <div className="w-16 h-16 rounded-full bg-[#E8D2B5]/40 text-[#590907] flex items-center justify-center mx-auto mb-4 text-3xl">
+                                <MdLandscape />
+                            </div>
+                            <h3 className="text-lg font-bold font-serif text-[#1C1E1B] mb-2">No Field Plots Configured Yet</h3>
+                            <p className="text-xs sm:text-sm text-[#545850] max-w-lg mx-auto mb-6">
+                                Configure your field plot with your real crop, soil type, and acreage so Ceres can personalize daily checklists, irrigation advisories, disease alerts, and harvest predictions.
+                            </p>
+                            <button
+                                type="button"
+                                onClick={openAddModal}
+                                className="px-6 py-2.5 rounded-full bg-[#590907] text-[#FDFBF7] font-semibold text-xs sm:text-sm shadow hover:bg-[#420605] inline-flex items-center gap-2 transition"
+                            >
+                                <RiAddLine className="text-base" />
+                                <span>Add Your First Field Plot</span>
+                            </button>
+                        </div>
+                    )}
                 </div>
             </main>
 

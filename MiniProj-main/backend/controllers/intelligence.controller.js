@@ -507,7 +507,7 @@ export const toggleTask = async (req, res) => {
         const { completed } = req.body;
 
         const task = await CropTask.findById(taskId);
-        if (!task || task.userId !== userId) {
+        if (!task || task.userId?.toString() !== userId?.toString()) {
             return res.status(404).json({ error: "Task not found" });
         }
 
