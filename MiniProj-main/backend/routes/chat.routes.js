@@ -1,8 +1,17 @@
 import express from "express";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const envPath = path.resolve(__dirname, "../.env");
+dotenv.config({ path: envPath });
 
 const router = express.Router();
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const DEFAULT_MODEL = "gemini-3.5-flash";
+const FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"];
 const MAX_MESSAGES = 12;
 const MAX_MESSAGE_LENGTH = 4000;
 const MAX_CONVERSATION_LENGTH = 12000;
@@ -48,66 +57,102 @@ function validateMessages(messages) {
 }
 
 router.post("/", async (req, res) => {
+    dotenv.config({ path: envPath, override: true });
+
     const { messages } = req.body || {};
-    const validationError = validateMessages(messages);
+    const trimmedMessages = Array.isArray(messages) && messages.length > MAX_MESSAGES
+        ? messages.slice(-MAX_MESSAGES)
+        : messages;
+
+    const validationError = validateMessages(trimmedMessages);
     if (validationError) {
         return res.status(400).json({ error: validationError });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const rawApiKey = process.env.GEMINI_API_KEY || "";
+    const apiKey = rawApiKey.trim().replace(/^["']|["']$/g, "");
     if (!apiKey) {
         return res.status(503).json({
             error: "The farmer assistant is not configured yet. Add GEMINI_API_KEY to backend/.env and restart the backend."
         });
     }
 
+    const configuredModel = (process.env.GEMINI_MODEL || DEFAULT_MODEL).trim();
+    const modelsToTry = [
+        configuredModel,
+        ...FALLBACK_MODELS.filter((m) => m !== configuredModel)
+    ];
+
+    const requestBody = JSON.stringify({
+        systemInstruction: {
+            parts: [{ text: SYSTEM_INSTRUCTION }]
+        },
+        contents: trimmedMessages.map(({ role, content }) => ({
+            role: role === "assistant" ? "model" : "user",
+            parts: [{ text: content.trim() }]
+        })),
+        generationConfig: {
+            temperature: 0.6,
+            maxOutputTokens: 2048
+        }
+    });
+
     try {
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_MODEL)}:generateContent`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-goog-api-key": apiKey
-                },
-                body: JSON.stringify({
-                    systemInstruction: {
-                        parts: [{ text: SYSTEM_INSTRUCTION }]
-                    },
-                    contents: messages.map(({ role, content }) => ({
-                        role: role === "assistant" ? "model" : "user",
-                        parts: [{ text: content.trim() }]
-                    })),
-                    generationConfig: {
-                        temperature: 0.6,
-                        maxOutputTokens: 1024
+        let lastResponse = null;
+        let lastErrorBody = null;
+
+        for (const model of modelsToTry) {
+            try {
+                const response = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-goog-api-key": apiKey
+                        },
+                        body: requestBody,
+                        signal: AbortSignal.timeout(20000)
                     }
-                }),
-                signal: AbortSignal.timeout(30000)
+                );
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const answer = result.candidates?.[0]?.content?.parts
+                        ?.filter((part) => !part.thought)
+                        .map((part) => part.text || "")
+                        .join("")
+                        .trim();
+
+                    if (answer) {
+                        return res.status(200).json({ reply: answer });
+                    }
+                } else {
+                    lastResponse = response;
+                    lastErrorBody = await response.json().catch(() => null);
+                    if (response.status === 401 || response.status === 403 || response.status === 429) {
+                        break;
+                    }
+                }
+            } catch (modelError) {
+                console.warn(`Gemini model ${model} failed:`, modelError.message);
+                if (model === modelsToTry[modelsToTry.length - 1]) {
+                    throw modelError;
+                }
             }
-        );
+        }
 
-        if (!response.ok) {
-            console.error(`Gemini API returned HTTP ${response.status}.`);
-            return res.status(502).json({
-                error: response.status === 429
-                    ? "The assistant is busy. Please try again in a moment."
+        const status = lastResponse?.status || 502;
+        const apiErrorMessage = lastErrorBody?.error?.message || "";
+        console.error(`Gemini API returned HTTP ${status}:`, apiErrorMessage || lastErrorBody);
+
+        return res.status(502).json({
+            error: status === 429
+                ? "The assistant is busy. Please try again in a moment."
+                : apiErrorMessage
+                    ? `Assistant error: ${apiErrorMessage}`
                     : "The assistant could not answer right now. Please try again later."
-            });
-        }
-
-        const result = await response.json();
-        const answer = result.candidates?.[0]?.content?.parts
-            ?.map((part) => part.text || "")
-            .join("")
-            .trim();
-
-        if (!answer) {
-            console.error("Gemini API returned no text candidate.");
-            return res.status(502).json({ error: "The assistant returned an empty answer. Please try again." });
-        }
-
-        return res.status(200).json({ reply: answer });
+        });
     } catch (error) {
         console.error("Gemini chat request failed:", error.message);
         const timedOut = error.name === "TimeoutError" || error.name === "AbortError";

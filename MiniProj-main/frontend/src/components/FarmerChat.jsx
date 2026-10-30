@@ -42,7 +42,7 @@ const FarmerChat = () => {
             const response = await fetch(`${API_URL}/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ messages: conversation })
+                body: JSON.stringify({ messages: conversation.slice(-12) })
             });
             const data = await response.json();
             if (!response.ok) {

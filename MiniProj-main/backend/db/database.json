@@ -47,6 +47,36 @@
       ],
       "createdAt": "2026-10-29T21:19:49.441Z",
       "updatedAt": "2026-10-29T21:19:49.443Z"
+    },
+    {
+      "_id": "951a436740d485dbcbd330e1",
+      "name": "Rohan",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699210",
+      "password": "$2a$12$CvvwcF9zrz75GxAGO9qIOOfBvFLCYL3XwVncrGWQJgTZInxz9MGN.",
+      "crops": [
+        "Rice"
+      ],
+      "createdAt": "2026-10-30T05:22:14.094Z",
+      "updatedAt": "2026-10-30T05:22:14.102Z"
+    },
+    {
+      "_id": "e1e63290fb53b3389c192ffc",
+      "name": "Rugvd",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699511",
+      "password": "$2a$12$8J.aT02wiTVHqlH3v3PbV.AER2IXTEs3qW95qPaTUGA.JtFJIJPTi",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Corn",
+        "Potato",
+        "Sugarcane"
+      ],
+      "createdAt": "2026-10-30T06:10:21.082Z",
+      "updatedAt": "2026-10-30T06:10:21.090Z"
     }
   ],
   "deletedUsers": [],
@@ -417,6 +447,37 @@
       ],
       "createdAt": "2026-10-29T21:21:20.206Z",
       "updatedAt": "2026-10-29T21:21:20.207Z"
+    },
+    {
+      "_id": "74b8104d20a5dbfdb16cd19e",
+      "userId": "ba185ff2d7da204cd763a2fd",
+      "url": "http://localhost:5000/uploads/img_1793337104207_le0rrs.jpg",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 301.3,
+      "hum": 71.75,
+      "disease": "Early_Blight",
+      "disease_details": [
+        "Early blight is caused by the fungus *Alternaria solani*.",
+        "It affects older leaves first, creating concentric rings or lesions."
+      ],
+      "recomm": [
+        "Use certified, disease-free seed potatoes and rotate crops.",
+        "Ensure good air circulation and avoid overhead irrigation."
+      ],
+      "pesticides": [
+        "Mancozeb",
+        "Chlorothalonil"
+      ],
+      "createdAt": "2026-10-30T05:11:46.889Z",
+      "updatedAt": "2026-10-30T05:11:46.893Z"
     }
   ],
   "products": [
@@ -507,11 +568,71 @@
       "price": 290,
       "createdAt": "2026-01-01T00:00:00.000Z",
       "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "ec22b8e6d7fbfaaf17431577",
+      "product_name": "Pesticide",
+      "image_url": "http://localhost:5000/uploads/img_1793340725279_jdtian.webp",
+      "seller": "e1e63290fb53b3389c192ffc",
+      "seller_name": "Kissan",
+      "seller_type": "farmer",
+      "price": 10,
+      "createdAt": "2026-10-30T06:12:05.293Z",
+      "updatedAt": "2026-10-30T06:12:05.296Z"
     }
   ],
-  "orders": [],
-  "payments": [],
-  "metadata": [],
+  "orders": [
+    {
+      "_id": "157852fc802ae3a7d3085fed",
+      "user": "ba185ff2d7da204cd763a2fd",
+      "orders": [
+        "751a3d6d7a356baa9f031164"
+      ],
+      "createdAt": "2026-10-30T05:17:58.886Z",
+      "updatedAt": "2026-10-30T05:17:58.897Z"
+    }
+  ],
+  "payments": [
+    {
+      "_id": "751a3d6d7a356baa9f031164",
+      "product_id": "660000000000000000000102",
+      "payment_intent_id": "local_session_1793337476992",
+      "product_name": "Propiconazole 25% EC Systemic Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "amount": 566,
+      "customer_name": "anya",
+      "customer_email": "anya@kisansahayak.local",
+      "customer_mobile": "9920140691",
+      "delivery": "Standard Farm Delivery, India",
+      "createdAt": "2026-10-30T05:17:58.877Z",
+      "updatedAt": "2026-10-30T05:17:58.903Z"
+    }
+  ],
+  "metadata": [
+    {
+      "_id": "3d6d7c53e5e724d56cc2b05e",
+      "user": "ba185ff2d7da204cd763a2fd",
+      "correct": 0,
+      "incorrect": 0,
+      "greenPoints": 0,
+      "totalGP": 250,
+      "createdAt": "2026-10-30T05:16:06.181Z",
+      "updatedAt": "2026-10-30T05:16:06.190Z"
+    },
+    {
+      "_id": "1018618503ead2f3ebd34081",
+      "user": "e1e63290fb53b3389c192ffc",
+      "correct": 0,
+      "incorrect": 0,
+      "greenPoints": 0,
+      "totalGP": 250,
+      "createdAt": "2026-10-30T06:10:55.749Z",
+      "updatedAt": "2026-10-30T06:10:55.754Z"
+    }
+  ],
   "images": [
     {
       "_id": "660000000000000000000201",
