@@ -258,7 +258,7 @@ const TelegramBotPanel = ({ compact = false }) => {
                             type="text"
                             value={tokenInput}
                             onChange={(e) => setTokenInput(e.target.value)}
-                            placeholder="e.g. 9232217305:AAFsOUtMga9_x4xJBCuGwA2p88Cw73F-t1Y"
+                            placeholder=" s2"
                             className="flex-1 px-3 py-2 text-xs rounded-lg border border-[#A5A79B]/50 bg-white text-[#1C1E1B] focus:outline-none focus:border-[#229ED9]"
                         />
                         <button

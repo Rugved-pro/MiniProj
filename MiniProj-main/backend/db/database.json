@@ -1,100 +1,103 @@
 {
-  "users": [
+  "products": [
     {
-      "_id": "aba0ab017a0795da1a8d4877",
-      "name": "Chris",
-      "gender": "M",
-      "dob": "01/01/2001",
-      "phoneno": "9004699510",
-      "password": "$2a$12$wqdFQgDEqNCBqkAMPD1YM.9mlbvd6esJ6CmuRfVJfNQczyd7wQvIK",
-      "crops": [
-        "Rice",
-        "Corn"
-      ],
-      "createdAt": "2026-10-29T19:44:54.068Z",
-      "updatedAt": "2026-10-30T08:47:53.240Z",
-      "telegramLinkCode": "01FE71"
+      "_id": "660000000000000000000101",
+      "product_name": "Mancozeb 75% WP Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "price": 380,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "_id": "ba185ff2d7da204cd763a2fd",
-      "name": "anya",
-      "gender": "M",
-      "dob": "04/04/2004",
-      "phoneno": "9920140691",
-      "password": "$2a$12$hBAjD3Jfx5BolbPZGJvse.jWUvOZ5M/wP9GBP8EVP1X.gfV6ArHWa",
-      "crops": [
-        "Rice",
-        "Wheat",
-        "Corn",
-        "Potato",
-        "Sugarcane"
-      ],
-      "createdAt": "2026-10-29T19:51:28.057Z",
-      "updatedAt": "2026-10-29T19:51:28.061Z"
+      "_id": "660000000000000000000102",
+      "product_name": "Propiconazole 25% EC Systemic Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "price": 520,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "_id": "02a21c18d25dc01e61432eea",
-      "name": "maake",
-      "gender": "M",
-      "dob": "12/12/2012",
-      "phoneno": "1212121212",
-      "password": "$2a$12$9VpR2NG3kRVCBuLE9N4tXue.PfNEKzAT57y8QIoYTCXkBCmhFQeYi",
-      "crops": [
-        "Rice",
-        "Wheat",
-        "Corn",
-        "Potato",
-        "Sugarcane"
-      ],
-      "createdAt": "2026-10-29T21:19:49.441Z",
-      "updatedAt": "2026-10-30T08:54:35.113Z",
-      "telegramLinkCode": "8AAB45",
-      "telegramChatId": "8643401176",
-      "telegramUsername": "Himansh",
-      "telegramLinkedAt": "2026-10-30T08:54:35.104Z"
+      "_id": "660000000000000000000103",
+      "product_name": "Azoxystrobin & Tebuconazole Crop Shield",
+      "image_url": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "GreenField Retailers",
+      "seller_type": "retailer",
+      "price": 640,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "_id": "951a436740d485dbcbd330e1",
-      "name": "Rohan",
-      "gender": "M",
-      "dob": "01/01/2001",
-      "phoneno": "9004699210",
-      "password": "$2a$12$CvvwcF9zrz75GxAGO9qIOOfBvFLCYL3XwVncrGWQJgTZInxz9MGN.",
-      "crops": [
-        "Rice"
-      ],
-      "createdAt": "2026-10-30T05:22:14.094Z",
-      "updatedAt": "2026-10-30T05:22:14.102Z"
+      "_id": "660000000000000000000104",
+      "product_name": "Carbendazim & Tricyclazole Blast Guard",
+      "image_url": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Bharat Krishi Kendra",
+      "seller_type": "retailer",
+      "price": 450,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "_id": "e1e63290fb53b3389c192ffc",
-      "name": "Rugvd",
-      "gender": "M",
-      "dob": "01/01/2001",
-      "phoneno": "9004699511",
-      "password": "$2a$12$8J.aT02wiTVHqlH3v3PbV.AER2IXTEs3qW95qPaTUGA.JtFJIJPTi",
-      "crops": [
-        "Rice",
-        "Wheat",
-        "Corn",
-        "Potato",
-        "Sugarcane"
-      ],
-      "createdAt": "2026-10-30T06:10:21.082Z",
-      "updatedAt": "2026-10-30T06:10:21.090Z"
+      "_id": "660000000000000000000105",
+      "product_name": "Chlorothalonil & Metalaxyl Blight Care",
+      "image_url": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Krishi Sevak Supplies",
+      "seller_type": "retailer",
+      "price": 490,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "_id": "dc5fcaae2b1c3275c970b6cf",
-      "name": "abc",
-      "gender": "M",
-      "dob": "01/03/2007",
-      "phoneno": "9082755847",
-      "password": "$2a$12$wu76m0ofGw.hrN.OF.yvyuX682e6RaBHpZ6tLbitReTlqu8ZT.ZMy",
-      "crops": [
-        "Corn"
-      ],
-      "createdAt": "2026-10-30T06:53:46.722Z",
-      "updatedAt": "2026-10-30T06:53:46.727Z"
+      "_id": "660000000000000000000106",
+      "product_name": "Copper Oxychloride & Streptomycin Pack",
+      "image_url": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "AgriCare India",
+      "seller_type": "retailer",
+      "price": 410,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000107",
+      "product_name": "Organic Sharbati Wheat Seeds (10kg)",
+      "image_url": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Ramesh Patil",
+      "seller_type": "farmer",
+      "price": 320,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "660000000000000000000108",
+      "product_name": "Premium Basmati Rice Seeds (5kg)",
+      "image_url": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Suresh Deshmukh",
+      "seller_type": "farmer",
+      "price": 290,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "ec22b8e6d7fbfaaf17431577",
+      "product_name": "Pesticide",
+      "image_url": "http://localhost:5000/uploads/img_1793340725279_jdtian.webp",
+      "seller": "e1e63290fb53b3389c192ffc",
+      "seller_name": "Kissan",
+      "seller_type": "farmer",
+      "price": 10,
+      "createdAt": "2026-10-30T06:12:05.293Z",
+      "updatedAt": "2026-10-30T06:12:05.296Z"
     }
   ],
   "deletedUsers": [],
@@ -620,159 +623,214 @@
       ],
       "createdAt": "2026-10-30T08:15:15.484Z",
       "updatedAt": "2026-10-30T08:15:15.488Z"
-    }
-  ],
-  "products": [
-    {
-      "_id": "660000000000000000000101",
-      "product_name": "Mancozeb 75% WP Fungicide",
-      "image_url": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Kisan Agro Store",
-      "seller_type": "retailer",
-      "price": 380,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "_id": "660000000000000000000102",
-      "product_name": "Propiconazole 25% EC Systemic Fungicide",
-      "image_url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Kisan Agro Store",
-      "seller_type": "retailer",
-      "price": 520,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "660000000000000000000103",
-      "product_name": "Azoxystrobin & Tebuconazole Crop Shield",
-      "image_url": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "GreenField Retailers",
-      "seller_type": "retailer",
-      "price": 640,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "660000000000000000000104",
-      "product_name": "Carbendazim & Tricyclazole Blast Guard",
-      "image_url": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Bharat Krishi Kendra",
-      "seller_type": "retailer",
-      "price": 450,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "660000000000000000000105",
-      "product_name": "Chlorothalonil & Metalaxyl Blight Care",
-      "image_url": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Krishi Sevak Supplies",
-      "seller_type": "retailer",
-      "price": 490,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "660000000000000000000106",
-      "product_name": "Copper Oxychloride & Streptomycin Pack",
-      "image_url": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "AgriCare India",
-      "seller_type": "retailer",
-      "price": 410,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "660000000000000000000107",
-      "product_name": "Organic Sharbati Wheat Seeds (10kg)",
-      "image_url": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Ramesh Patil",
-      "seller_type": "farmer",
-      "price": 320,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "660000000000000000000108",
-      "product_name": "Premium Basmati Rice Seeds (5kg)",
-      "image_url": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Suresh Deshmukh",
-      "seller_type": "farmer",
-      "price": 290,
-      "createdAt": "2026-01-01T00:00:00.000Z",
-      "updatedAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "_id": "ec22b8e6d7fbfaaf17431577",
-      "product_name": "Pesticide",
-      "image_url": "http://localhost:5000/uploads/img_1793340725279_jdtian.webp",
-      "seller": "e1e63290fb53b3389c192ffc",
-      "seller_name": "Kissan",
-      "seller_type": "farmer",
-      "price": 10,
-      "createdAt": "2026-10-30T06:12:05.293Z",
-      "updatedAt": "2026-10-30T06:12:05.296Z"
-    }
-  ],
-  "orders": [
-    {
-      "_id": "157852fc802ae3a7d3085fed",
-      "user": "ba185ff2d7da204cd763a2fd",
-      "orders": [
-        "751a3d6d7a356baa9f031164"
+      "_id": "da6334fd52efd1ff8200fdbc",
+      "userId": "050126bcaeef10d997ac8e17",
+      "url": "http://localhost:5000/uploads/img_1793351842123_b59hm2.png",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 300.86,
+      "hum": 76.38,
+      "disease": "Early_Blight",
+      "confidence": 92.5,
+      "top3": [
+        {
+          "crop": "Potato",
+          "disease": "Early_Blight",
+          "confidence": 92.5
+        },
+        {
+          "crop": "Corn",
+          "disease": "Common_Rust",
+          "confidence": 6.4
+        },
+        {
+          "crop": "Wheat",
+          "disease": "Brown_Rust",
+          "confidence": 0.5
+        }
       ],
-      "createdAt": "2026-10-30T05:17:58.886Z",
-      "updatedAt": "2026-10-30T05:17:58.897Z"
-    }
-  ],
-  "payments": [
-    {
-      "_id": "751a3d6d7a356baa9f031164",
-      "product_id": "660000000000000000000102",
-      "payment_intent_id": "local_session_1793337476992",
-      "product_name": "Propiconazole 25% EC Systemic Fungicide",
-      "image_url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80",
-      "seller": "660000000000000000000001",
-      "seller_name": "Kisan Agro Store",
-      "seller_type": "retailer",
-      "amount": 566,
-      "customer_name": "anya",
-      "customer_email": "anya@kisansahayak.local",
-      "customer_mobile": "9920140691",
-      "delivery": "Standard Farm Delivery, India",
-      "createdAt": "2026-10-30T05:17:58.877Z",
-      "updatedAt": "2026-10-30T05:17:58.903Z"
-    }
-  ],
-  "metadata": [
-    {
-      "_id": "3d6d7c53e5e724d56cc2b05e",
-      "user": "ba185ff2d7da204cd763a2fd",
-      "correct": 0,
-      "incorrect": 0,
-      "greenPoints": 0,
-      "totalGP": 250,
-      "createdAt": "2026-10-30T05:16:06.181Z",
-      "updatedAt": "2026-10-30T05:16:06.190Z"
+      "is_uncertain": false,
+      "sharpness": 185.3,
+      "quality_warning": "",
+      "disease_details": [
+        "Early blight is caused by the fungus *Alternaria solani*.",
+        "It affects older leaves first, creating concentric rings or lesions."
+      ],
+      "recomm": [
+        "Use certified, disease-free seed potatoes and rotate crops.",
+        "Ensure good air circulation and avoid overhead irrigation."
+      ],
+      "pesticides": [
+        "Mancozeb",
+        "Chlorothalonil"
+      ],
+      "createdAt": "2026-10-30T09:17:24.850Z",
+      "updatedAt": "2026-10-30T09:17:24.854Z"
     },
     {
-      "_id": "1018618503ead2f3ebd34081",
-      "user": "e1e63290fb53b3389c192ffc",
-      "correct": 0,
-      "incorrect": 0,
-      "greenPoints": 0,
-      "totalGP": 250,
-      "createdAt": "2026-10-30T06:10:55.749Z",
-      "updatedAt": "2026-10-30T06:10:55.754Z"
+      "_id": "962a47b75210a9ec3d52dfe9",
+      "userId": "050126bcaeef10d997ac8e17",
+      "url": "http://localhost:5000/uploads/img_1793351870304_ryhnx3.jpg",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 300.86,
+      "hum": 76.38,
+      "disease": "Early_Blight",
+      "confidence": 79.7,
+      "top3": [
+        {
+          "crop": "Potato",
+          "disease": "Early_Blight",
+          "confidence": 79.7
+        },
+        {
+          "crop": "Potato",
+          "disease": "Healthy",
+          "confidence": 8.8
+        },
+        {
+          "crop": "Wheat",
+          "disease": "Brown_Rust",
+          "confidence": 3.8
+        }
+      ],
+      "is_uncertain": false,
+      "sharpness": 484.1,
+      "quality_warning": "",
+      "disease_details": [
+        "Early blight is caused by the fungus *Alternaria solani*.",
+        "It affects older leaves first, creating concentric rings or lesions."
+      ],
+      "recomm": [
+        "Use certified, disease-free seed potatoes and rotate crops.",
+        "Ensure good air circulation and avoid overhead irrigation."
+      ],
+      "pesticides": [
+        "Mancozeb",
+        "Chlorothalonil"
+      ],
+      "createdAt": "2026-10-30T09:17:51.661Z",
+      "updatedAt": "2026-10-30T09:17:51.664Z"
+    },
+    {
+      "_id": "c1a9d491b10dd211e8d7d18e",
+      "userId": "050126bcaeef10d997ac8e17",
+      "url": "http://localhost:5000/uploads/img_1793351897821_8tninz.webp",
+      "location": "BANKURA",
+      "crop": "Wheat",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 300.86,
+      "hum": 76.38,
+      "disease": "Yellow_Rust",
+      "confidence": 75.3,
+      "top3": [
+        {
+          "crop": "Wheat",
+          "disease": "Yellow_Rust",
+          "confidence": 75.3
+        },
+        {
+          "crop": "Corn",
+          "disease": "Gray_Leaf_Spot",
+          "confidence": 18.4
+        },
+        {
+          "crop": "Corn",
+          "disease": "Common_Rust",
+          "confidence": 4.4
+        }
+      ],
+      "is_uncertain": false,
+      "sharpness": 329.6,
+      "quality_warning": "",
+      "disease_details": [
+        "Yellow rust, also known as stripe rust, is caused by the fungus *Puccinia striiformis*.",
+        "It appears as yellow pustules on wheat leaves, affecting photosynthesis."
+      ],
+      "recomm": [
+        "Grow resistant varieties and use balanced fertilizers.",
+        "Apply fungicides preventively in areas prone to rust."
+      ],
+      "pesticides": [
+        "Tebuconazole",
+        "Azoxystrobin"
+      ],
+      "createdAt": "2026-10-30T09:18:19.462Z",
+      "updatedAt": "2026-10-30T09:18:19.468Z"
+    },
+    {
+      "_id": "2569993eb5e9abe57b944e1e",
+      "userId": "050126bcaeef10d997ac8e17",
+      "url": "http://localhost:5000/uploads/img_1793353980161_4iaf98.jpg",
+      "location": "BANKURA",
+      "crop": "Potato",
+      "rainAct": 218.5430534813,
+      "rainNorm": 318.8818535014,
+      "rainDep": -31.4658231312,
+      "soil_N": 0.437086107,
+      "soil_P": 0.3707904788,
+      "soil_K": 0.5190382163,
+      "soil_pH": 5.0268015739,
+      "temp": 300.86,
+      "hum": 76.38,
+      "disease": "Early_Blight",
+      "confidence": 79.7,
+      "top3": [
+        {
+          "crop": "Potato",
+          "disease": "Early_Blight",
+          "confidence": 79.7
+        },
+        {
+          "crop": "Potato",
+          "disease": "Healthy",
+          "confidence": 8.8
+        },
+        {
+          "crop": "Wheat",
+          "disease": "Brown_Rust",
+          "confidence": 3.8
+        }
+      ],
+      "is_uncertain": false,
+      "sharpness": 484.1,
+      "quality_warning": "",
+      "disease_details": [
+        "Early blight is caused by the fungus *Alternaria solani*.",
+        "It affects older leaves first, creating concentric rings or lesions."
+      ],
+      "recomm": [
+        "Use certified, disease-free seed potatoes and rotate crops.",
+        "Ensure good air circulation and avoid overhead irrigation."
+      ],
+      "pesticides": [
+        "Mancozeb",
+        "Chlorothalonil"
+      ],
+      "createdAt": "2026-10-30T09:53:03.113Z",
+      "updatedAt": "2026-10-30T09:53:03.116Z"
     }
   ],
   "images": [
@@ -837,7 +895,248 @@
       "disease": "Healthy"
     }
   ],
-  "farms": [],
   "mandiWatchlist": [],
-  "cropTasks": []
+  "cropTasks": [],
+  "orders": [
+    {
+      "_id": "157852fc802ae3a7d3085fed",
+      "user": "ba185ff2d7da204cd763a2fd",
+      "orders": [
+        "751a3d6d7a356baa9f031164"
+      ],
+      "createdAt": "2026-10-30T05:17:58.886Z",
+      "updatedAt": "2026-10-30T05:17:58.897Z"
+    },
+    {
+      "_id": "2051dbd292f18220c33be931",
+      "user": "050126bcaeef10d997ac8e17",
+      "orders": [
+        "b4cd4b8f7b61d0fddb328d31"
+      ],
+      "createdAt": "2026-10-30T09:58:04.787Z",
+      "updatedAt": "2026-10-30T09:58:04.797Z"
+    }
+  ],
+  "users": [
+    {
+      "_id": "aba0ab017a0795da1a8d4877",
+      "name": "Chris",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699510",
+      "password": "$2a$12$wqdFQgDEqNCBqkAMPD1YM.9mlbvd6esJ6CmuRfVJfNQczyd7wQvIK",
+      "crops": [
+        "Rice",
+        "Corn"
+      ],
+      "createdAt": "2026-10-29T19:44:54.068Z",
+      "updatedAt": "2026-10-30T08:47:53.240Z",
+      "telegramLinkCode": "01FE71"
+    },
+    {
+      "_id": "ba185ff2d7da204cd763a2fd",
+      "name": "anya",
+      "gender": "M",
+      "dob": "04/04/2004",
+      "phoneno": "9920140691",
+      "password": "$2a$12$hBAjD3Jfx5BolbPZGJvse.jWUvOZ5M/wP9GBP8EVP1X.gfV6ArHWa",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Corn",
+        "Potato",
+        "Sugarcane"
+      ],
+      "createdAt": "2026-10-29T19:51:28.057Z",
+      "updatedAt": "2026-10-29T19:51:28.061Z"
+    },
+    {
+      "_id": "02a21c18d25dc01e61432eea",
+      "name": "maake",
+      "gender": "M",
+      "dob": "12/12/2012",
+      "phoneno": "1212121212",
+      "password": "$2a$12$9VpR2NG3kRVCBuLE9N4tXue.PfNEKzAT57y8QIoYTCXkBCmhFQeYi",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Corn",
+        "Potato",
+        "Sugarcane"
+      ],
+      "createdAt": "2026-10-29T21:19:49.441Z",
+      "updatedAt": "2026-10-30T09:14:51.374Z",
+      "telegramLinkCode": "8AAB45",
+      "telegramChatId": "",
+      "telegramUsername": "",
+      "telegramLinkedAt": "2026-10-30T08:54:35.104Z"
+    },
+    {
+      "_id": "951a436740d485dbcbd330e1",
+      "name": "Rohan",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699210",
+      "password": "$2a$12$CvvwcF9zrz75GxAGO9qIOOfBvFLCYL3XwVncrGWQJgTZInxz9MGN.",
+      "crops": [
+        "Rice"
+      ],
+      "createdAt": "2026-10-30T05:22:14.094Z",
+      "updatedAt": "2026-10-30T05:22:14.102Z"
+    },
+    {
+      "_id": "e1e63290fb53b3389c192ffc",
+      "name": "Rugvd",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699511",
+      "password": "$2a$12$8J.aT02wiTVHqlH3v3PbV.AER2IXTEs3qW95qPaTUGA.JtFJIJPTi",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Corn",
+        "Potato",
+        "Sugarcane"
+      ],
+      "createdAt": "2026-10-30T06:10:21.082Z",
+      "updatedAt": "2026-10-30T06:10:21.090Z"
+    },
+    {
+      "_id": "dc5fcaae2b1c3275c970b6cf",
+      "name": "abc",
+      "gender": "M",
+      "dob": "01/03/2007",
+      "phoneno": "9082755847",
+      "password": "$2a$12$wu76m0ofGw.hrN.OF.yvyuX682e6RaBHpZ6tLbitReTlqu8ZT.ZMy",
+      "crops": [
+        "Corn"
+      ],
+      "createdAt": "2026-10-30T06:53:46.722Z",
+      "updatedAt": "2026-10-30T06:53:46.727Z"
+    },
+    {
+      "_id": "050126bcaeef10d997ac8e17",
+      "name": "Rugved",
+      "gender": "M",
+      "dob": "01/01/2001",
+      "phoneno": "9004699520",
+      "password": "$2a$12$YavQJwQFMS2N1fKLTv2J/u0so.bTR0rNWAx947WSHweomHlqUHd6y",
+      "crops": [
+        "Rice",
+        "Wheat",
+        "Potato",
+        "Corn",
+        "Sugarcane"
+      ],
+      "district": "PUNE",
+      "telegramChatId": "8643401176",
+      "telegramUsername": "Himansh",
+      "telegramLinkedAt": "2026-10-30T10:00:17.524Z",
+      "telegramLinkCode": "32AC76",
+      "createdAt": "2026-10-30T09:14:04.230Z",
+      "updatedAt": "2026-10-30T10:00:17.528Z"
+    }
+  ],
+  "payments": [
+    {
+      "_id": "751a3d6d7a356baa9f031164",
+      "product_id": "660000000000000000000102",
+      "payment_intent_id": "local_session_1793337476992",
+      "product_name": "Propiconazole 25% EC Systemic Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "amount": 566,
+      "customer_name": "anya",
+      "customer_email": "anya@kisansahayak.local",
+      "customer_mobile": "9920140691",
+      "delivery": "Standard Farm Delivery, India",
+      "createdAt": "2026-10-30T05:17:58.877Z",
+      "updatedAt": "2026-10-30T05:17:58.903Z"
+    },
+    {
+      "_id": "b4cd4b8f7b61d0fddb328d31",
+      "product_id": "660000000000000000000101",
+      "payment_intent_id": "local_session_1793354282670",
+      "product_name": "Mancozeb 75% WP Fungicide",
+      "image_url": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80",
+      "seller": "660000000000000000000001",
+      "seller_name": "Kisan Agro Store",
+      "seller_type": "retailer",
+      "amount": 426,
+      "customer_name": "Rugved",
+      "customer_email": "rugved@kisansahayak.local",
+      "customer_mobile": "9004699520",
+      "delivery": "Standard Farm Delivery, India",
+      "createdAt": "2026-10-30T09:58:04.782Z",
+      "updatedAt": "2026-10-30T09:58:04.801Z"
+    }
+  ],
+  "metadata": [
+    {
+      "_id": "3d6d7c53e5e724d56cc2b05e",
+      "user": "ba185ff2d7da204cd763a2fd",
+      "correct": 0,
+      "incorrect": 0,
+      "greenPoints": 0,
+      "totalGP": 250,
+      "createdAt": "2026-10-30T05:16:06.181Z",
+      "updatedAt": "2026-10-30T05:16:06.190Z"
+    },
+    {
+      "_id": "1018618503ead2f3ebd34081",
+      "user": "e1e63290fb53b3389c192ffc",
+      "correct": 0,
+      "incorrect": 0,
+      "greenPoints": 0,
+      "totalGP": 250,
+      "createdAt": "2026-10-30T06:10:55.749Z",
+      "updatedAt": "2026-10-30T06:10:55.754Z"
+    }
+  ],
+  "farms": [
+    {
+      "_id": "e70b5ec5ec31fbfd1ceb9bb7",
+      "userId": "050126bcaeef10d997ac8e17",
+      "farmerName": "Rugved",
+      "phone": "9004699520",
+      "state": "",
+      "district": "",
+      "preferredLanguage": "en",
+      "activePlotId": "e9d7ddb87ca8da19",
+      "plots": [
+        {
+          "_id": "e9d7ddb87ca8da19",
+          "name": "Field Plot 1",
+          "area": 2,
+          "areaUnit": "Acres",
+          "crop": "Wheat",
+          "variety": "Standard Variety",
+          "sowingDate": "2026-10-30",
+          "growthStage": "Vegetative / Tillering",
+          "soilType": "Loamy",
+          "irrigationMethod": "Drip Irrigation",
+          "createdAt": "2026-10-30T09:17:03.890Z",
+          "updatedAt": "2026-10-30T09:17:03.890Z"
+        },
+        {
+          "_id": "3ed311e4e6ae4f52",
+          "name": "Field Plot 3",
+          "area": 2,
+          "areaUnit": "Hectares",
+          "crop": "Potato",
+          "variety": "Standard Variety",
+          "sowingDate": "2026-10-29",
+          "growthStage": "Flowering / Booting",
+          "soilType": "Clayey",
+          "irrigationMethod": "Drip Irrigation",
+          "createdAt": "2026-10-30T09:52:03.718Z",
+          "updatedAt": "2026-10-30T09:52:03.718Z"
+        }
+      ],
+      "createdAt": "2026-10-30T09:17:03.876Z",
+      "updatedAt": "2026-10-30T09:52:03.719Z"
+    }
+  ]
 }
